@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thai Varso — Chmielna, do drugiej</title>
+<meta name="description" content="Momo, curry, ramen. Azjatycka kuchnia i bar przy Chmielnej w Warszawie. Otwarte od 12:00 do północy, w piątek i sobotę do drugiej. Catering dla biur i ekip filmowych.">
+<meta name="theme-color" content="#BFC7B2">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 34'%3E%3Crect width='28' height='34' fill='%23BFC7B2'/%3E%3Cg fill='none' stroke='%231E1B16' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M9 7.5c0-2.6 2.4-2.4 2.4-5'/%3E%3Cpath d='M14 5.5c0-2.2 2.4-2 2.4-4.3'/%3E%3Cpath d='M19 7.5c0-2.6 2.4-2.4 2.4-5'/%3E%3C/g%3E%3Cg fill='%231E1B16'%3E%3Crect x='6.6' y='12' width='15' height='5.2' rx='1.1'/%3E%3Crect x='4.3' y='19.1' width='19.5' height='5.2' rx='1.1'/%3E%3Crect x='2' y='26.2' width='24' height='5.8' rx='1.1'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;800;900&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --zupa:#BFC7B2;
+  --ink:#1E1B16;
+  --chilli:#E8471F;
+  --ticket:#2749A8;
+  --steam:#EDF0E6;
+  --mustard:#E0A21C;
+  --chilli-deep:#98290C;
+
+  --field:var(--zupa);
+  --accent:var(--chilli-deep);
+  --price:var(--ticket);
+
+  --poster:"Big Shoulders Display","Arial Narrow",sans-serif;
+  --body:"Schibsted Grotesk",system-ui,sans-serif;
+  --data:"Space Mono",ui-monospace,monospace;
+
+  --gut:clamp(16px,3.4vw,44px);
+  --stack-w:clamp(58px,6vw,84px);
+  --rule:2px solid var(--ink);
+}
+body.late{--field:var(--mustard);--accent:var(--ink);--price:var(--ink)}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--field);color:var(--ink);
+  font-family:var(--body);font-size:clamp(15px,.55vw + 13px,17px);line-height:1.5;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  transition:background .8s ease;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,p,ul,figure{margin:0}
+ul{list-style:none;padding:0}
+
+.pad{padding-inline:var(--gut)}
+.stackpad{padding-right:calc(var(--stack-w) + var(--gut))}
+
+.mono{font-family:var(--data);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+.big{
+  font-family:var(--poster);font-weight:800;text-transform:uppercase;
+  line-height:.8;letter-spacing:.005em;
+}
+
+/* ========== HOUR STACK — the signature ========== */
+.stack{
+  position:fixed;top:0;right:0;bottom:0;width:var(--stack-w);z-index:60;
+  display:flex;flex-direction:column-reverse;
+  border-left:var(--rule);background:var(--field);
+  transition:background .8s ease;
+}
+.stack a{
+  flex:1;display:flex;align-items:center;gap:6px;
+  padding-left:8px;text-decoration:none;
+  border-top:1px solid rgba(30,27,22,.28);
+  font-family:var(--data);font-size:.68rem;font-weight:700;letter-spacing:.02em;
+  color:rgba(30,27,22,.8);
+  transition:background .2s,color .2s,padding-left .2s;
+}
+.stack a:first-child{border-top:0}
+.stack a.shut{color:rgba(30,27,22,.36);font-weight:400}
+.stack a:hover,.stack a:focus-visible{background:var(--steam);color:var(--ink);padding-left:14px}
+.stack a.now{
+  background:var(--chilli);color:var(--ink);font-weight:700;font-size:.86rem;
+  flex-grow:1.5;padding-left:14px;
+}
+.stack a.now::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
+.stack-cap{
+  padding:10px 8px;border-top:var(--rule);
+  font-family:var(--data);font-size:.58rem;font-weight:700;letter-spacing:.14em;
+  writing-mode:vertical-rl;text-orientation:mixed;
+  display:flex;align-items:center;justify-content:center;flex:none;height:112px;
+}
+
+/* ========== POSTER ========== */
+.poster{min-height:100svh;display:flex;flex-direction:column;border-bottom:var(--rule)}
+.poster-top{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px 16px;
+  flex-wrap:wrap;padding-top:14px;padding-bottom:14px;
+}
+.wordmark{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center}
+.wordmark .mk{width:26px;height:auto;grid-row:1/3;color:var(--ink)}
+.wm-t{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:1.34rem;line-height:1;letter-spacing:.02em}
+.wm-t i{font-style:normal;color:var(--accent)}
+.wordmark small{font-family:var(--body);font-weight:400;font-size:.62rem;letter-spacing:.03em;max-width:26ch;align-self:start}
+.live{display:flex;align-items:center;gap:7px;white-space:nowrap;padding-top:3px}
+.live i{width:8px;height:8px;border-radius:50%;background:var(--chilli);display:block}
+.live i.shut{background:rgba(30,27,22,.35)}
+
+.bill{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:14px;min-height:0}
+.line{
+  display:flex;align-items:baseline;gap:14px;
+  border-top:1px solid rgba(30,27,22,.3);padding:1px 0;
+  text-decoration:none;
+}
+.line:first-child{border-top:0}
+.line b{
+  flex:none;font-family:var(--poster);font-weight:800;text-transform:uppercase;
+  /* sized from BOTH axes: longest word must fit the column, 8 lines must fit the screen */
+  font-size:clamp(1.75rem,
+      min(calc((100vw - var(--gut)*2 - var(--stack-w) - 96px) / 4.7),
+          calc((100svh - 215px) * .142)),
+      7rem);
+  line-height:.86;letter-spacing:.004em;
+  transition:color .18s;
+}
+.line s{flex:1;height:2px;background:rgba(30,27,22,.3);text-decoration:none}
+.line em{
+  flex:none;font-family:var(--data);font-style:normal;font-size:clamp(.66rem,1.5vw,.9rem);
+  color:var(--price);font-weight:700;
+}
+.line:hover b,.line:focus-visible b{color:var(--accent)}
+.poster-foot{display:flex;flex-wrap:wrap;gap:8px 22px;padding-bottom:16px;border-top:var(--rule);padding-top:12px}
+.poster-foot span{color:rgba(30,27,22,.7)}
+
+/* ========== BANDS ========== */
+.band{border-bottom:var(--rule);padding-block:clamp(38px,6vw,78px)}
+.band.steam{background:var(--steam)}
+.band.night{background:var(--ink);color:var(--steam)}
+.band.night .lede,.band.night .row p{color:rgba(237,240,230,.76)}
+.band.night .row{border-color:rgba(237,240,230,.24)}
+.band.night .price{color:var(--mustard)}
+.band.night .eyebrow{color:var(--mustard)}
+
+.eyebrow{font-family:var(--data);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h2.big{font-size:clamp(2rem,6.4vw,4.4rem);margin-bottom:.16em}
+.lede{font-size:clamp(1rem,1.5vw,1.16rem);max-width:44ch;color:rgba(30,27,22,.82)}
+
+.split{display:grid;gap:clamp(22px,3vw,48px)}
+.figure{border:var(--rule);background:var(--ink)}
+.figure img{width:100%}
+.figure figcaption{font-family:var(--data);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--steam);padding:8px 10px;border-top:var(--rule)}
+
+/* ========== THE BOARD ========== */
+.hourhead{
+  display:flex;align-items:baseline;gap:12px;margin-top:38px;margin-bottom:2px;
+  border-bottom:var(--rule);padding-bottom:7px;
+}
+.hourhead b{font-family:var(--poster);font-weight:800;text-transform:uppercase;font-size:clamp(1.3rem,3.4vw,2.1rem);line-height:1}
+.hourhead span{font-family:var(--data);font-size:.62rem;letter-spacing:.14em;color:var(--price);margin-left:auto;text-align:right}
+.row{
+  display:grid;grid-template-columns:1fr auto;gap:2px 18px;align-items:baseline;
+  padding:12px 0;border-bottom:1px solid rgba(30,27,22,.26);
+}
+.row h3{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:clamp(1.05rem,2.3vw,1.5rem);line-height:1;letter-spacing:.01em}
+.row .price{grid-column:2;grid-row:1;font-family:var(--data);font-weight:700;font-size:.92rem;color:var(--price);white-space:nowrap}
+.row p{grid-column:1;font-size:.92rem;color:rgba(30,27,22,.72);max-width:58ch}
+.row .swap{grid-column:1/-1;font-family:var(--data);font-size:.6rem;letter-spacing:.06em;color:var(--accent);margin-top:4px;text-transform:uppercase}
+
+/* ========== CATERING — order form ========== */
+.spec{border:var(--rule);background:var(--steam)}
+.spec-h{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:var(--rule);font-family:var(--data);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase}
+.spec ul li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:12px 14px;border-bottom:1px solid rgba(30,27,22,.2)}
+.spec ul li:last-child{border-bottom:0}
+.spec b{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:1.12rem;line-height:1.1}
+.spec em{font-style:normal;font-family:var(--data);font-weight:700;font-size:.86rem;color:var(--price);white-space:nowrap;grid-column:2;grid-row:1}
+.spec small{grid-column:1/-1;font-size:.86rem;color:rgba(30,27,22,.72)}
+.terms{margin-top:22px;display:grid;gap:9px}
+.terms li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
+.terms i{font-style:normal;font-family:var(--data);font-weight:700;font-size:.76rem;color:var(--accent);white-space:nowrap}
+.terms span{font-size:.94rem;color:rgba(30,27,22,.8)}
+
+.cta{
+  display:inline-block;margin-top:26px;background:var(--ink);color:var(--steam);
+  font-family:var(--data);font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  padding:15px 26px;text-decoration:none;border:var(--rule);
+  transition:transform .15s,background .15s;
+}
+.cta:hover{background:var(--chilli-deep);transform:translate(-2px,-2px);box-shadow:4px 4px 0 var(--ink)}
+.cta.light{background:var(--mustard);color:var(--ink)}
+
+/* ========== FOOT ========== */
+.foot{padding-block:clamp(30px,4vw,56px)}
+.hours{width:100%;border-collapse:collapse;max-width:420px}
+.hours td{padding:7px 0;border-bottom:1px solid rgba(30,27,22,.24);font-family:var(--data);font-size:.72rem}
+.hours td:last-child{text-align:right}
+.hours tr.today td{color:var(--accent);font-weight:700}
+.foot a{font-family:var(--data);font-size:.8rem;color:var(--price);text-decoration:none;border-bottom:1.5px solid var(--price)}
+.foot a:hover{color:var(--accent);border-color:var(--accent)}
+.fine{margin-top:30px;font-size:.76rem;color:rgba(30,27,22,.62);max-width:76ch;border-top:var(--rule);padding-top:14px}
+
+a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offset:3px}
+
+@media (min-width:860px){
+  .split{grid-template-columns:1fr 1fr;align-items:start}
+  .split.wide{grid-template-columns:1.15fr .85fr}
+}
+@media (max-width:859px){
+  :root{--stack-w:44px}
+  .stack a{font-size:.5rem;padding-left:5px}
+  .stack a::after{display:none}
+  .stack-cap{display:none}
+  .live{order:3;width:100%;padding-top:0}
+  .row{grid-template-columns:1fr}
+  .row .price{grid-column:1;grid-row:auto}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="stack" id="stack" aria-label="Godziny otwarcia"></nav>
+
+<header class="poster pad stackpad">
+  <div class="poster-top">
+    <h1 class="wordmark"><svg class="mk" viewBox="0 0 28 34" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 7.5c0-2.6 2.4-2.4 2.4-5"/><path d="M14 5.5c0-2.2 2.4-2 2.4-4.3"/><path d="M19 7.5c0-2.6 2.4-2.4 2.4-5"/></g><g fill="currentColor"><rect x="6.6" y="12" width="15" height="5.2" rx="1.1"/><rect x="4.3" y="19.1" width="19.5" height="5.2" rx="1.1"/><rect x="2" y="26.2" width="24" height="5.8" rx="1.1"/></g></svg><span class="wm-t">Thai<i>·</i>Varso</span>
+      <small>Momo, curry, ramen. Chmielna. Do drugiej.</small>
+    </h1>
+    <p class="live mono"><i id="dot"></i><span id="liveTxt">Chmielna, Warszawa</span></p>
+  </div>
+
+  <div class="bill">
+    <a class="line" href="#momo"><b>Momo</b><s></s><em>40 zł</em></a>
+    <a class="line" href="#board"><b>Pad Thai</b><s></s><em>36 zł</em></a>
+    <a class="line" href="#board"><b>Tom Yum</b><s></s><em>24 zł</em></a>
+    <a class="line" href="#board"><b>Manchurian</b><s></s><em>26 zł</em></a>
+    <a class="line" href="#board"><b>Ramen</b><s></s><em>39 zł</em></a>
+    <a class="line" href="#board"><b>Pho</b><s></s><em>36 zł</em></a>
+    <a class="line" href="#board"><b>Curry</b><s></s><em>38 zł</em></a>
+    <a class="line" href="#night"><b>Burger</b><s></s><em>45 zł</em></a>
+  </div>
+
+  <p class="poster-foot mono">
+    <span>ul. Chmielna, Warszawa</span>
+    <span>Kuchnia tajska · nepalska · indyjska</span>
+    <span>Ceny z VAT</span>
+  </p>
+</header>
+
+<section class="band steam pad stackpad" id="momo">
+  <div class="split wide">
+    <div>
+      <p class="eyebrow">To po co się wraca</p>
+      <h2 class="big">Momo lepimy<br>ręcznie, co rano</h2>
+      <p class="lede">Nepalskie pierożki, zawijane pojedynczo — dziesięć sztuk na porcję, każdy z osobna zaplisowany. Mielony kurczak albo warzywa, z cebulą, imbirem, czosnkiem i kolendrą. Na parze albo smażone.</p>
+      <ul class="terms" style="margin-top:24px">
+        <li><i>40 zł</i><span>Warzywne, 10 szt. — na parze</span></li>
+        <li><i>45 zł</i><span>Kurczak, 10 szt. — na parze</span></li>
+        <li><i>+2–3 zł</i><span>Wersja smażona</span></li>
+      </ul>
+    </div>
+    <figure class="figure">
+      <img src="img/momo-print.jpg" alt="Dziesięć lepionych momo z sosem sesame-chili" loading="lazy">
+      <figcaption>Fresh momo · sos sesame-chili</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band pad stackpad" id="board">
+  <p class="eyebrow">Karta</p>
+  <h2 class="big">Co i o której</h2>
+  <p class="lede">Kuchnia pracuje od dwunastej do zamknięcia. Nic nie znika o piętnastej.</p>
+
+  <div class="hourhead"><b>12–16</b><span>Lunch</span></div>
+  <article class="row"><h3>Pad Thai</h3><p class="price">36 zł</p>
+    <p>Płaski makaron ryżowy w orzechowo-słodkim sosie, tajskie warzywa, smażone jajko.</p>
+    <p class="swap">Tofu 36 · Kurczak 39 · Krewetki 42</p></article>
+  <article class="row"><h3>Chow Mein</h3><p class="price">33 zł</p>
+    <p>Makaron z woka, ciemny sos sojowy i rybny, tajskie warzywa.</p>
+    <p class="swap">Tofu 33 · Kurczak 39 · Krewetki 45</p></article>
+  <article class="row"><h3>Tom Yum</h3><p class="price">24 zł</p>
+    <p>Ostro-kwaśna, trawa cytrynowa, galangal, limonka.</p>
+    <p class="swap">Tofu 24 · Kurczak 28 · Krewetki 33</p></article>
+  <article class="row"><h3>Manchow</h3><p class="price">22 zł</p>
+    <p>Gęsta i ciemna, imbir i czosnek, chrupiący smażony makaron na wierzchu.</p>
+    <p class="swap">Tofu 22 · Kurczak 26 · Krewetki 32</p></article>
+
+  <div class="hourhead"><b>16–22</b><span>Wieczór</span></div>
+  <article class="row"><h3>Curry tajskie</h3><p class="price">38 zł</p>
+    <p>Zielone, czerwone albo żółte, na mleku kokosowym. Ostrość ustawiamy pod ciebie.</p>
+    <p class="swap">Tofu 38 · Kurczak 42 · Krewetki 45</p></article>
+  <article class="row"><h3>Ramen</h3><p class="price">39 zł</p>
+    <p>Wywar z bambusem, galangalem, szczypiorkiem i jajkiem.</p>
+    <p class="swap">Kurczak 39 · Wołowina 42</p></article>
+  <article class="row"><h3>Pho</h3><p class="price">36 zł</p>
+    <p>Mięsny wywar, makaron, cebula, zioła.</p>
+    <p class="swap">Kurczak 36 · Wołowina 39 · Krewetki 44</p></article>
+  <article class="row"><h3>Cauliflower Manchurian</h3><p class="price">26 zł</p>
+    <p>Kalafior w cieście, smażony, w sosie manchurian z warzywami.</p></article>
+  <article class="row"><h3>Tempura</h3><p class="price">49,99 zł</p>
+    <p>Sześć sztuk owoców morza w chrupiącej panierce, z sosem.</p></article>
+
+  <div class="hourhead"><b>Po 22</b><span>Do końca</span></div>
+  <article class="row"><h3>Chef's Special Burger</h3><p class="price">51 zł</p>
+    <p>Wołowina, cheddar, sadzone jajko, chorizo, jalapeño, nasz sos. Z frytkami.</p></article>
+  <article class="row"><h3>Jalapeño Cheese Burger</h3><p class="price">45 zł</p>
+    <p>Wołowina, cheddar, boczek, jalapeño, BBQ i ostry sos. Z frytkami.</p></article>
+  <article class="row"><h3>Smash beef loaded fries</h3><p class="price">34 zł</p>
+    <p>Frytki pod stopionym serem i mielonną wołowiną.</p>
+    <p class="swap">Kurczak 34 · Wołowina 36</p></article>
+  <article class="row"><h3>Curly fries</h3><p class="price">24 zł</p>
+    <p>Przyprawione, z serem i chili, ketchup z wędzonej papryki.</p></article>
+</section>
+
+<section class="band night pad stackpad" id="night">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Po dwudziestej drugiej</p>
+      <h2 class="big">Kuchnia nie<br>zamyka pierwsza</h2>
+      <p class="lede">Koktajle, shoty, piwo i shisha. W niedzielę–czwartek do północy, w piątek i sobotę do drugiej. Jedzenie leci do samego końca — nie wyganiamy nikogo o dwudziestej trzeciej.</p>
+      <a class="cta light" href="https://chmielna.cocolounge.pl/menu/1/menu">Karta baru i shishy</a>
+    </div>
+    <figure class="figure" style="border-color:var(--steam)">
+      <img src="img/wok-print.jpg" alt="Danie z woka w ostrym sosie" loading="lazy">
+      <figcaption style="border-color:var(--steam)">Wok &amp; fry bites · do dzielenia</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="band pad stackpad" id="catering">
+  <div class="split wide">
+    <div>
+      <p class="eyebrow">Catering</p>
+      <h2 class="big">Do biur i na<br>plany zdjęciowe</h2>
+      <p class="lede">Ta sama kuchnia, w pudełkach. Dowozimy w Śródmieściu i na Woli. Podaj liczbę osób i godzinę — wycenę odsyłamy tego samego dnia.</p>
+      <ul class="terms">
+        <li><i>350 zł</i><span>Minimum netto na dostawę, albo 10 zestawów.</span></li>
+        <li><i>0 zł</i><span>Dowóz w Śródmieściu i na Woli przy stałym harmonogramie.</span></li>
+        <li><i>Netto</i><span>Ceny cateringu są netto. W karcie restauracji — z VAT.</span></li>
+        <li><i>Wege</i><span>Każdy zestaw ma wersję bezmięsną. Bezglutenowe robimy, ale kuchnia nie jest wolna od glutenu.</span></li>
+      </ul>
+      <a class="cta" href="mailto:catering@thaivarso.pl?subject=Catering%20—%20zapytanie">Napisz po wycenę</a>
+    </div>
+
+    <div class="spec">
+      <div class="spec-h"><span>Zestaw</span><span>Netto / os.</span></div>
+      <ul>
+        <li><b>Express Lunch</b><em>32 zł</em><small>Pad thai, smażony ryż albo chow mein, surówka asian slaw. Jedno pudełko.</small></li>
+        <li><b>Bistro Lunch</b><em>45 zł</em><small>Zupa, curry z ryżem, przystawka — momo albo spring roll.</small></li>
+        <li><b>Executive Lunch</b><em>58 zł</em><small>Momo lub manchurian, krewetki w czarnym pieprzu, sernik, woda.</small></li>
+        <li><b>Crew Finger Food</b><em>42 zł</em><small>Sześć przekąsek: momo, manchurian, tempura, mini taco. Sosy i napój.</small></li>
+        <li><b>Bufet na plan</b><em>65 zł</em><small>8–10 przekąsek na osobę, zupa w kubkach, stacja napojów.</small></li>
+        <li><b>Śniadanie do biura</b><em>22 zł</em><small>Ciepły wrap z jajecznicą albo tofu, sriracha. Kawa lub masala chai.</small></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="band foot pad stackpad" style="border-bottom:0">
+  <div class="split">
+    <div>
+      <p class="eyebrow">Godziny</p>
+      <table class="hours">
+        <tbody id="hoursBody">
+          <tr data-d="1"><td>Poniedziałek</td><td>12:00 – 00:00</td></tr>
+          <tr data-d="2"><td>Wtorek</td><td>12:00 – 00:00</td></tr>
+          <tr data-d="3"><td>Środa</td><td>12:00 – 00:00</td></tr>
+          <tr data-d="4"><td>Czwartek</td><td>12:00 – 00:00</td></tr>
+          <tr data-d="5"><td>Piątek</td><td>12:00 – 02:00</td></tr>
+          <tr data-d="6"><td>Sobota</td><td>12:00 – 02:00</td></tr>
+          <tr data-d="0"><td>Niedziela</td><td>12:00 – 00:00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <p class="eyebrow">Gdzie</p>
+      <p class="big" style="font-size:clamp(1.5rem,3.4vw,2.2rem);margin-bottom:14px">ul. Chmielna<br>Warszawa</p>
+      <p style="margin-bottom:8px"><a href="https://chmielna.cocolounge.pl/menu/1/menu">Pełna karta i alergeny</a></p>
+      <p style="margin-bottom:8px"><a href="mailto:catering@thaivarso.pl">catering@thaivarso.pl</a></p>
+      <p><a href="tel:+48000000000">+48 000 000 000</a></p>
+    </div>
+  </div>
+  <p class="fine">
+    Wszystkie dania mogą zawierać śladowe ilości alergenów: mleka, jaj, orzechów, soi, ryb, skorupiaków i glutenu.
+    Ceny w karcie zawierają VAT. Przy stolikach od czterech osób doliczamy 10% serwisu.
+  </p>
+</footer>
+
+<script>
+(function(){
+  var FORCE=(location.search.match(/tryb=(dzien|noc)/)||[])[1]||'';
+  var OPEN=12, CLOSE={0:24,1:24,2:24,3:24,4:24,5:26,6:26};
+  var stack=document.getElementById('stack');
+  var dot=document.getElementById('dot'), txt=document.getElementById('liveTxt');
+
+  // build the hour stack: 12:00 -> 01:00, plus a cap
+  var frag=document.createDocumentFragment();
+  for(var h=OPEN; h<=25; h++){
+    var a=document.createElement('a');
+    var real=h%24;
+    a.href = h<16 ? '#board' : (h<22 ? '#board' : '#night');
+    a.dataset.h=h;
+    a.textContent=(real<10?'0':'')+real;
+    frag.appendChild(a);
+  }
+  stack.appendChild(frag);
+  var cap=document.createElement('div');
+  cap.className='stack-cap'; cap.textContent='Otwarte';
+  stack.appendChild(cap);
+
+  function warsaw(){
+    var f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Warsaw',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false});
+    var p={}; f.formatToParts(new Date()).forEach(function(x){p[x.type]=x.value});
+    var m={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+    return {d:m[p.weekday], h:parseInt(p.hour,10), dec:parseInt(p.hour,10)+parseInt(p.minute,10)/60};
+  }
+
+  function tick(){
+    var n=warsaw(); if(n.d===undefined) return;
+    var closeToday=CLOSE[n.d], closeYest=CLOSE[(n.d+6)%7];
+    var open=(n.dec>=OPEN && n.dec<closeToday) || (closeYest>24 && n.dec<closeYest-24);
+
+    // normalise "now" onto the 12..25 scale
+    var nowSlot = n.h<OPEN ? n.h+24 : n.h;
+
+    [].forEach.call(stack.querySelectorAll('a'), function(a){
+      var h=parseInt(a.dataset.h,10);
+      a.classList.toggle('now', open && h===nowSlot);
+      a.classList.toggle('shut', h>=closeToday);
+    });
+
+    dot.classList.toggle('shut', !open);
+    txt.textContent = open ? 'Otwarte — kuchnia pracuje' : 'Zamknięte — od 12:00';
+    if(FORCE==='dzien')      document.body.classList.remove('late');
+    else if(FORCE==='noc')   document.body.classList.add('late');
+    else document.body.classList.toggle('late', open && (n.dec>=22 || n.dec<6));
+
+    [].forEach.call(document.querySelectorAll('#hoursBody tr'), function(r){
+      r.classList.toggle('today', parseInt(r.dataset.d,10)===n.d);
+    });
+  }
+  tick(); setInterval(tick,30000);
+})();
+</script>
+</body>
+</html>
