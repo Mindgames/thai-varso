@@ -29,7 +29,6 @@
   --data:"Space Mono",ui-monospace,monospace;
 
   --gut:clamp(16px,3.4vw,44px);
-  --stack-w:clamp(58px,6vw,84px);
   --rule:2px solid var(--ink);
 }
 body.late{--field:var(--mustard);--accent:var(--ink);--price:var(--ink)}
@@ -48,42 +47,12 @@ h1,h2,h3,p,ul,figure{margin:0}
 ul{list-style:none;padding:0}
 
 .pad{padding-inline:var(--gut)}
-.stackpad{padding-right:calc(var(--stack-w) + var(--gut))}
+.stackpad{padding-right:var(--gut)}
 
-.mono{font-family:var(--data);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase}
+.mono{font-size:.8rem;letter-spacing:.01em;color:rgba(30,27,22,.72)}
 .big{
   font-family:var(--poster);font-weight:800;text-transform:uppercase;
-  line-height:.8;letter-spacing:.005em;
-}
-
-/* ========== HOUR STACK — the signature ========== */
-.stack{
-  position:fixed;top:0;right:0;bottom:0;width:var(--stack-w);z-index:60;
-  display:flex;flex-direction:column-reverse;
-  border-left:var(--rule);background:var(--field);
-  transition:background .8s ease;
-}
-.stack a{
-  flex:1;display:flex;align-items:center;gap:6px;
-  padding-left:8px;text-decoration:none;
-  border-top:1px solid rgba(30,27,22,.28);
-  font-family:var(--data);font-size:.68rem;font-weight:700;letter-spacing:.02em;
-  color:rgba(30,27,22,.8);
-  transition:background .2s,color .2s,padding-left .2s;
-}
-.stack a:first-child{border-top:0}
-.stack a.shut{color:rgba(30,27,22,.36);font-weight:400}
-.stack a:hover,.stack a:focus-visible{background:var(--steam);color:var(--ink);padding-left:14px}
-.stack a.now{
-  background:var(--chilli);color:var(--ink);font-weight:700;font-size:.86rem;
-  flex-grow:1.5;padding-left:14px;
-}
-.stack a.now::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--ink)}
-.stack-cap{
-  padding:10px 8px;border-top:var(--rule);
-  font-family:var(--data);font-size:.58rem;font-weight:700;letter-spacing:.14em;
-  writing-mode:vertical-rl;text-orientation:mixed;
-  display:flex;align-items:center;justify-content:center;flex:none;height:112px;
+  line-height:1.12;letter-spacing:.005em;  /* accented caps span 1.15em ink — never go below ~1.1 */
 }
 
 /* ========== POSTER ========== */
@@ -94,10 +63,15 @@ ul{list-style:none;padding:0}
 }
 .wordmark{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center}
 .wordmark .mk{width:26px;height:auto;grid-row:1/3;color:var(--ink)}
-.wm-t{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:1.34rem;line-height:1;letter-spacing:.02em}
+.wm-t{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:1.34rem;line-height:1.1;letter-spacing:.02em}
 .wm-t i{font-style:normal;color:var(--accent)}
-.wordmark small{font-family:var(--body);font-weight:400;font-size:.62rem;letter-spacing:.03em;max-width:26ch;align-self:start}
-.live{display:flex;align-items:center;gap:7px;white-space:nowrap;padding-top:3px}
+.wordmark small{font-family:var(--body);font-weight:400;font-size:.72rem;line-height:1.35;letter-spacing:.01em;max-width:26ch;align-self:start}
+.live{
+  display:flex;align-items:center;gap:9px;padding-top:2px;
+  font-size:.92rem;font-weight:500;
+}
+.live b{font-weight:500}
+.live u{text-decoration:none;color:rgba(30,27,22,.6);font-weight:400}
 .live i{width:8px;height:8px;border-radius:50%;background:var(--chilli);display:block}
 .live i.shut{background:rgba(30,27,22,.35)}
 
@@ -112,10 +86,10 @@ ul{list-style:none;padding:0}
   flex:none;font-family:var(--poster);font-weight:800;text-transform:uppercase;
   /* sized from BOTH axes: longest word must fit the column, 8 lines must fit the screen */
   font-size:clamp(1.75rem,
-      min(calc((100vw - var(--gut)*2 - var(--stack-w) - 96px) / 4.7),
-          calc((100svh - 215px) * .142)),
+      min(calc((100vw - var(--gut)*2 - 110px) / 4.7),
+          calc((100svh - 225px) * .132)),
       7rem);
-  line-height:.86;letter-spacing:.004em;
+  line-height:.92;letter-spacing:.004em;
   transition:color .18s;
 }
 .line s{flex:1;height:2px;background:rgba(30,27,22,.3);text-decoration:none}
@@ -129,54 +103,85 @@ ul{list-style:none;padding:0}
 
 /* ========== BANDS ========== */
 .band{border-bottom:var(--rule);padding-block:clamp(38px,6vw,78px)}
+
+/* all-you-can-eat strip — the loudest offer on the page */
+.buffet{background:var(--chilli);color:var(--ink);border-bottom:var(--rule);padding-block:clamp(26px,3.4vw,44px)}
+.buffet-in{display:flex;flex-wrap:wrap;align-items:center;gap:14px clamp(20px,4vw,52px)}
+.buffet-txt{flex:1 1 320px;min-width:0}
+.buffet h2{
+  font-family:var(--poster);font-weight:900;text-transform:uppercase;line-height:1.1;
+  font-size:clamp(1.9rem,5.6vw,3.6rem);margin:0 0 16px;
+}
+.buffet p{margin:0;font-size:clamp(1.06rem,1.5vw,1.2rem);font-weight:600}
+.buffet p.en{font-weight:500;color:rgba(30,27,22,.78);margin-top:6px}
+.buffet .tag{
+  font-family:var(--poster);font-weight:900;line-height:.9;
+  font-size:clamp(3rem,8vw,5.6rem);white-space:nowrap;
+}
+.buffet .tag small{display:block;font-family:var(--body);font-size:.95rem;font-weight:600;letter-spacing:.01em;margin-top:6px}
+
+/* 128 BPM. Flat bars, stepped timing — a printed level meter, not a flourish. */
+.beat{display:inline-flex;align-items:flex-end;gap:4px;height:22px;vertical-align:-4px}
+.beat i{width:5px;background:var(--ink);height:100%;transform-origin:bottom;animation:bt .469s steps(2,jump-none) infinite}
+.beat i:nth-child(2){animation-delay:-.352s}
+.beat i:nth-child(3){animation-delay:-.235s}
+.beat i:nth-child(4){animation-delay:-.117s}
+@keyframes bt{0%{transform:scaleY(1)}50%{transform:scaleY(.3)}100%{transform:scaleY(1)}}
+.bpm{display:inline-flex;align-items:center;gap:9px;margin-top:18px;font-family:var(--data);font-weight:700;font-size:.9rem}
 .band.steam{background:var(--steam)}
 .band.night{background:var(--ink);color:var(--steam)}
-.band.night .lede,.band.night .row p{color:rgba(237,240,230,.76)}
+.band.night .lede,.band.night .row p{color:rgba(237,240,230,.78)}
+.band.night .lede.en{color:rgba(237,240,230,.52)}
+.band.night .row .en{color:rgba(237,240,230,.5)}
+.band.night .row .swap{color:var(--mustard)}
 .band.night .row{border-color:rgba(237,240,230,.24)}
 .band.night .price{color:var(--mustard)}
 .band.night .eyebrow{color:var(--mustard)}
 
-.eyebrow{font-family:var(--data);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-h2.big{font-size:clamp(2rem,6.4vw,4.4rem);margin-bottom:.16em}
-.lede{font-size:clamp(1rem,1.5vw,1.16rem);max-width:44ch;color:rgba(30,27,22,.82)}
+.eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.05em;color:var(--accent);margin-bottom:18px}
+h2.big{font-size:clamp(2rem,6.4vw,4.4rem);margin-bottom:.4em;letter-spacing:-.005em}
+.lede{font-size:clamp(1rem,1.5vw,1.16rem);line-height:1.5;max-width:46ch;color:rgba(30,27,22,.82)}
+.lede.en{font-size:.96rem;color:rgba(30,27,22,.55);margin-top:8px}
 
 .split{display:grid;gap:clamp(22px,3vw,48px)}
 .figure{border:var(--rule);background:var(--ink)}
 .figure img{width:100%}
-.figure figcaption{font-family:var(--data);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--steam);padding:8px 10px;border-top:var(--rule)}
+.figure figcaption{font-size:.8rem;color:rgba(237,240,230,.8);padding:9px 12px;border-top:var(--rule)}
 
 /* ========== THE BOARD ========== */
 .hourhead{
-  display:flex;align-items:baseline;gap:12px;margin-top:38px;margin-bottom:2px;
-  border-bottom:var(--rule);padding-bottom:7px;
+  display:flex;align-items:baseline;gap:12px;margin-top:52px;margin-bottom:4px;
+  border-bottom:var(--rule);padding-bottom:9px;
 }
-.hourhead b{font-family:var(--poster);font-weight:800;text-transform:uppercase;font-size:clamp(1.3rem,3.4vw,2.1rem);line-height:1}
-.hourhead span{font-family:var(--data);font-size:.62rem;letter-spacing:.14em;color:var(--price);margin-left:auto;text-align:right}
-.row{
-  display:grid;grid-template-columns:1fr auto;gap:2px 18px;align-items:baseline;
-  padding:12px 0;border-bottom:1px solid rgba(30,27,22,.26);
+.hourhead b{font-family:var(--poster);font-weight:800;text-transform:uppercase;font-size:clamp(1.3rem,3.4vw,2.1rem);line-height:1.1}
+.hourhead span{font-size:.84rem;font-weight:500;color:var(--price);margin-left:auto;text-align:right}
+.row{padding:16px 0;border-bottom:1px solid rgba(30,27,22,.26)}
+.row h3{
+  font-family:var(--poster);font-weight:700;text-transform:uppercase;
+  font-size:clamp(1.12rem,2.4vw,1.55rem);line-height:1.12;letter-spacing:.01em;margin-bottom:6px;
 }
-.row h3{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:clamp(1.05rem,2.3vw,1.5rem);line-height:1;letter-spacing:.01em}
-.row .price{grid-column:2;grid-row:1;font-family:var(--data);font-weight:700;font-size:.92rem;color:var(--price);white-space:nowrap}
-.row p{grid-column:1;font-size:.92rem;color:rgba(30,27,22,.72);max-width:58ch}
-.row .swap{grid-column:1/-1;font-family:var(--data);font-size:.6rem;letter-spacing:.06em;color:var(--accent);margin-top:4px;text-transform:uppercase}
+.row p{font-size:.95rem;line-height:1.45;color:rgba(30,27,22,.8);max-width:62ch;margin:0}
+.row .en{font-size:.86rem;line-height:1.4;color:rgba(30,27,22,.52);max-width:62ch;margin-top:3px}
+.row .tab{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 14px;margin-top:10px}
+.row .price{font-family:var(--data);font-weight:700;font-size:1.04rem;color:var(--price)}
+.row .swap{font-size:.82rem;color:var(--accent)}
 
 /* ========== CATERING — order form ========== */
 .spec{border:var(--rule);background:var(--steam)}
-.spec-h{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;border-bottom:var(--rule);font-family:var(--data);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase}
+.spec-h{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;border-bottom:var(--rule);font-size:.8rem;font-weight:600;color:rgba(30,27,22,.7)}
 .spec ul li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:12px 14px;border-bottom:1px solid rgba(30,27,22,.2)}
 .spec ul li:last-child{border-bottom:0}
-.spec b{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:1.12rem;line-height:1.1}
+.spec b{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:1.12rem;line-height:1.18}
 .spec em{font-style:normal;font-family:var(--data);font-weight:700;font-size:.86rem;color:var(--price);white-space:nowrap;grid-column:2;grid-row:1}
 .spec small{grid-column:1/-1;font-size:.86rem;color:rgba(30,27,22,.72)}
 .terms{margin-top:22px;display:grid;gap:9px}
 .terms li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
-.terms i{font-style:normal;font-family:var(--data);font-weight:700;font-size:.76rem;color:var(--accent);white-space:nowrap}
+.terms i{font-style:normal;font-family:var(--data);font-weight:700;font-size:.84rem;color:var(--accent);white-space:nowrap}
 .terms span{font-size:.94rem;color:rgba(30,27,22,.8)}
 
 .cta{
   display:inline-block;margin-top:26px;background:var(--ink);color:var(--steam);
-  font-family:var(--data);font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  font-weight:600;font-size:.95rem;letter-spacing:.01em;
   padding:15px 26px;text-decoration:none;border:var(--rule);
   transition:transform .15s,background .15s;
 }
@@ -186,10 +191,11 @@ h2.big{font-size:clamp(2rem,6.4vw,4.4rem);margin-bottom:.16em}
 /* ========== FOOT ========== */
 .foot{padding-block:clamp(30px,4vw,56px)}
 .hours{width:100%;border-collapse:collapse;max-width:420px}
-.hours td{padding:7px 0;border-bottom:1px solid rgba(30,27,22,.24);font-family:var(--data);font-size:.72rem}
+.hours td{padding:8px 0;border-bottom:1px solid rgba(30,27,22,.24);font-size:.9rem}
+.hours td:last-child{font-family:var(--data);font-size:.82rem}
 .hours td:last-child{text-align:right}
 .hours tr.today td{color:var(--accent);font-weight:700}
-.foot a{font-family:var(--data);font-size:.8rem;color:var(--price);text-decoration:none;border-bottom:1.5px solid var(--price)}
+.foot a{font-size:.94rem;color:var(--price);text-decoration:none;border-bottom:1.5px solid var(--price)}
 .foot a:hover{color:var(--accent);border-color:var(--accent)}
 .fine{margin-top:30px;font-size:.76rem;color:rgba(30,27,22,.62);max-width:76ch;border-top:var(--rule);padding-top:14px}
 
@@ -213,14 +219,12 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
 </head>
 <body>
 
-<nav class="stack" id="stack" aria-label="Godziny otwarcia"></nav>
-
 <header class="poster pad stackpad">
   <div class="poster-top">
     <h1 class="wordmark"><svg class="mk" viewBox="0 0 28 34" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 7.5c0-2.6 2.4-2.4 2.4-5"/><path d="M14 5.5c0-2.2 2.4-2 2.4-4.3"/><path d="M19 7.5c0-2.6 2.4-2.4 2.4-5"/></g><g fill="currentColor"><rect x="6.6" y="12" width="15" height="5.2" rx="1.1"/><rect x="4.3" y="19.1" width="19.5" height="5.2" rx="1.1"/><rect x="2" y="26.2" width="24" height="5.8" rx="1.1"/></g></svg><span class="wm-t">Thai<i>·</i>Varso</span>
       <small>Momo, curry, ramen. Chmielna. Do drugiej.</small>
     </h1>
-    <p class="live mono"><i id="dot"></i><span id="liveTxt">Chmielna, Warszawa</span></p>
+    <p class="live"><i id="dot"></i><span id="liveTxt">Chmielna, Warszawa</span></p>
   </div>
 
   <div class="bill">
@@ -235,11 +239,24 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
   </div>
 
   <p class="poster-foot mono">
+    <span><a href="#bufet" style="color:var(--accent);font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent)">Bufet 11–15 · ile dasz radę · 25 zł</a></span>
     <span>ul. Chmielna, Warszawa</span>
     <span>Kuchnia tajska · nepalska · indyjska</span>
     <span>Ceny z VAT</span>
   </p>
 </header>
+
+<section class="buffet pad stackpad" id="bufet">
+  <div class="buffet-in">
+    <div class="buffet-txt">
+      <h2>Smażony ryż<br>ile dasz radę</h2>
+      <p>Bufet all-you-can-eat · codziennie 11:00–15:00</p>
+      <p class="en" lang="en">All-you-can-eat fried rice buffet · every day, 11am–3pm</p>
+      <p class="bpm"><span class="beat" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>128</span></p>
+    </div>
+    <p class="tag">25 zł<small>na osobę / per person</small></p>
+  </div>
+</section>
 
 <section class="band steam pad stackpad" id="momo">
   <div class="split wide">
@@ -261,49 +278,118 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
 </section>
 
 <section class="band pad stackpad" id="board">
-  <p class="eyebrow">Karta</p>
+  <p class="eyebrow">Karta / Menu</p>
   <h2 class="big">Co i o której</h2>
   <p class="lede">Kuchnia pracuje od dwunastej do zamknięcia. Nic nie znika o piętnastej.</p>
+  <p class="lede en" lang="en" style="margin-top:6px">The kitchen runs from noon until we close. Nothing comes off the menu at three.</p>
 
   <div class="hourhead"><b>12–16</b><span>Lunch</span></div>
-  <article class="row"><h3>Pad Thai</h3><p class="price">36 zł</p>
+  <article class="row">
+    <h3>Pad Thai</h3>
     <p>Płaski makaron ryżowy w orzechowo-słodkim sosie, tajskie warzywa, smażone jajko.</p>
-    <p class="swap">Tofu 36 · Kurczak 39 · Krewetki 42</p></article>
-  <article class="row"><h3>Chow Mein</h3><p class="price">33 zł</p>
-    <p>Makaron z woka, ciemny sos sojowy i rybny, tajskie warzywa.</p>
-    <p class="swap">Tofu 33 · Kurczak 39 · Krewetki 45</p></article>
-  <article class="row"><h3>Tom Yum</h3><p class="price">24 zł</p>
-    <p>Ostro-kwaśna, trawa cytrynowa, galangal, limonka.</p>
-    <p class="swap">Tofu 24 · Kurczak 28 · Krewetki 33</p></article>
-  <article class="row"><h3>Manchow</h3><p class="price">22 zł</p>
-    <p>Gęsta i ciemna, imbir i czosnek, chrupiący smażony makaron na wierzchu.</p>
-    <p class="swap">Tofu 22 · Kurczak 26 · Krewetki 32</p></article>
+    <p class="en" lang="en">Flat rice noodles tossed in a nutty, sweet sauce with Thai veggies and a savoury fried egg.</p>
+    <div class="tab"><span class="price">36 zł</span><span class="swap">Tofu 36 · Kurczak 39 · Krewetki 42</span></div>
+  </article>
+  <article class="row">
+    <h3>Chow Mein</h3>
+    <p>Makaron z woka w ciemnym sosie sojowym i rybnym, z tajskimi warzywami.</p>
+    <p class="en" lang="en">Wok-tossed chow mein noodles with Thai veggies in rich dark soy and fish sauce.</p>
+    <div class="tab"><span class="price">33 zł</span><span class="swap">Tofu 33 · Kurczak 39 · Krewetki 45</span></div>
+  </article>
+  <article class="row">
+    <h3>Smażony ryż / Fried Rice</h3>
+    <p>Ryż z woka z mieszanką warzyw i aromatycznymi przyprawami.</p>
+    <p class="en" lang="en">Stir-fried rice with mixed veggies and aromatic spices.</p>
+    <div class="tab"><span class="price">33 zł</span><span class="swap">Tofu 33 · Kurczak 36 · Krewetki 39</span></div>
+  </article>
+  <article class="row">
+    <h3>Tom Yum</h3>
+    <p>Ostro-kwaśna zupa z trawą cytrynową, galangalem i limonką.</p>
+    <p class="en" lang="en">Zesty hot and sour soup infused with lemongrass, galangal and a splash of lime.</p>
+    <div class="tab"><span class="price">24 zł</span><span class="swap">Tofu 24 · Kurczak 28 · Krewetki 33</span></div>
+  </article>
+  <article class="row">
+    <h3>Manchow</h3>
+    <p>Gęsta, ciemna zupa z imbirem i czosnkiem, z chrupiącym smażonym makaronem.</p>
+    <p class="en" lang="en">Rich dark soup with mixed vegetables, ginger and garlic, topped with crispy fried noodles.</p>
+    <div class="tab"><span class="price">22 zł</span><span class="swap">Tofu 22 · Kurczak 26 · Krewetki 32</span></div>
+  </article>
 
-  <div class="hourhead"><b>16–22</b><span>Wieczór</span></div>
-  <article class="row"><h3>Curry tajskie</h3><p class="price">38 zł</p>
+  <div class="hourhead"><b>16–22</b><span>Wieczór / Evening</span></div>
+  <article class="row">
+    <h3>Curry tajskie / Thai Curry</h3>
     <p>Zielone, czerwone albo żółte, na mleku kokosowym. Ostrość ustawiamy pod ciebie.</p>
-    <p class="swap">Tofu 38 · Kurczak 42 · Krewetki 45</p></article>
-  <article class="row"><h3>Ramen</h3><p class="price">39 zł</p>
+    <p class="en" lang="en">Green, red or yellow curry simmered with fragrant spices and coconut milk. Spice level adjustable.</p>
+    <div class="tab"><span class="price">38 zł</span><span class="swap">Tofu 38 · Kurczak 42 · Krewetki 45</span></div>
+  </article>
+  <article class="row">
+    <h3>Tom Kha Gai</h3>
+    <p>Kokosowa zupa z galangalem, liśćmi limonki kaffir i świeżymi ziołami.</p>
+    <p class="en" lang="en">Fragrant Thai coconut soup with galangal, lime leaves and fresh herbs.</p>
+    <div class="tab"><span class="price">26 zł</span><span class="swap">Tofu 26 · Kurczak 29 · Krewetki 34</span></div>
+  </article>
+  <article class="row">
+    <h3>Ramen</h3>
     <p>Wywar z bambusem, galangalem, szczypiorkiem i jajkiem.</p>
-    <p class="swap">Kurczak 39 · Wołowina 42</p></article>
-  <article class="row"><h3>Pho</h3><p class="price">36 zł</p>
-    <p>Mięsny wywar, makaron, cebula, zioła.</p>
-    <p class="swap">Kurczak 36 · Wołowina 39 · Krewetki 44</p></article>
-  <article class="row"><h3>Cauliflower Manchurian</h3><p class="price">26 zł</p>
-    <p>Kalafior w cieście, smażony, w sosie manchurian z warzywami.</p></article>
-  <article class="row"><h3>Tempura</h3><p class="price">49,99 zł</p>
-    <p>Sześć sztuk owoców morza w chrupiącej panierce, z sosem.</p></article>
+    <p class="en" lang="en">Ramen in an aromatic oriental broth with bamboo, galangal, spring onion and egg.</p>
+    <div class="tab"><span class="price">39 zł</span><span class="swap">Kurczak 39 · Wołowina 42</span></div>
+  </article>
+  <article class="row">
+    <h3>Pho</h3>
+    <p>Mięsny wywar z makaronem, cebulą, szczypiorkiem i ziołami.</p>
+    <p class="en" lang="en">Savoury meat broth with noodles, onion, chives and herbs.</p>
+    <div class="tab"><span class="price">36 zł</span><span class="swap">Kurczak 36 · Wołowina 39 · Krewetki 44</span></div>
+  </article>
+  <article class="row">
+    <h3>Cauliflower Manchurian</h3>
+    <p>Kalafior w cieście, smażony, w sosie manchurian z warzywami.</p>
+    <p class="en" lang="en">Crispy battered cauliflower tossed in Manchurian sauce with mixed vegetables.</p>
+    <div class="tab"><span class="price">26 zł</span></div>
+  </article>
+  <article class="row">
+    <h3>Chili — tofu, kurczak, krewetki</h3>
+    <p>Kawałki w słodko-ostrej glazurze chili, z ziołami i chrupiącą papryką.</p>
+    <p class="en" lang="en">Tender bites in a sweet, spicy, tangy chilli glaze with herbs and crunchy capsicum.</p>
+    <div class="tab"><span class="price">30 zł</span><span class="swap">Tofu 30 · Kurczak 36 · Krewetki 40</span></div>
+  </article>
+  <article class="row">
+    <h3>Tempura (6 szt.)</h3>
+    <p>Owoce morza w lekkiej, chrupiącej panierce, z sosem do maczania.</p>
+    <p class="en" lang="en">Seafood in a light, crispy batter, fried golden and served with a dipping sauce.</p>
+    <div class="tab"><span class="price">49,99 zł</span></div>
+  </article>
 
-  <div class="hourhead"><b>Po 22</b><span>Do końca</span></div>
-  <article class="row"><h3>Chef's Special Burger</h3><p class="price">51 zł</p>
-    <p>Wołowina, cheddar, sadzone jajko, chorizo, jalapeño, nasz sos. Z frytkami.</p></article>
-  <article class="row"><h3>Jalapeño Cheese Burger</h3><p class="price">45 zł</p>
-    <p>Wołowina, cheddar, boczek, jalapeño, BBQ i ostry sos. Z frytkami.</p></article>
-  <article class="row"><h3>Smash beef loaded fries</h3><p class="price">34 zł</p>
-    <p>Frytki pod stopionym serem i mielonną wołowiną.</p>
-    <p class="swap">Kurczak 34 · Wołowina 36</p></article>
-  <article class="row"><h3>Curly fries</h3><p class="price">24 zł</p>
-    <p>Przyprawione, z serem i chili, ketchup z wędzonej papryki.</p></article>
+  <div class="hourhead"><b>Po 22</b><span>Do końca / Till close</span></div>
+  <article class="row">
+    <h3>Chef's Special Burger</h3>
+    <p>Wołowina, cheddar, sadzone jajko, chorizo, sałata, cebula i jalapeño, nasz sos. Z frytkami.</p>
+    <p class="en" lang="en">Grilled beef with cheddar, a fried egg and spicy chorizo, salad, onion and jalapeños, house sauce. With fries.</p>
+    <div class="tab"><span class="price">51 zł</span></div>
+  </article>
+  <article class="row">
+    <h3>Jalapeño Cheese Burger</h3>
+    <p>Wołowina, cheddar, boczek, jalapeño i lodowa sałata, BBQ i ostry sos. Z frytkami.</p>
+    <p class="en" lang="en">Grilled beef with cheddar, bacon, jalapeños and crisp iceberg, BBQ and hot sauce. With fries.</p>
+    <div class="tab"><span class="price">45 zł</span></div>
+  </article>
+  <article class="row">
+    <h3>Vege Tofu Burger</h3>
+    <p>Grillowane tofu z serem, pomidorem, ogórkiem konserwowym i cebulą. Z frytkami.</p>
+    <p class="en" lang="en">Grilled tofu with cheese, tomato, pickles and onion. With fries.</p>
+    <div class="tab"><span class="price">39 zł</span></div>
+  </article>
+  <article class="row">
+    <h3>Smash beef loaded fries</h3>
+    <p>Frytki pod stopionym serem i mieloną wołowiną.</p>
+    <p class="en" lang="en">Crispy golden fries topped with melted cheese and savoury minced beef.</p>
+    <div class="tab"><span class="price">34 zł</span><span class="swap">Kurczak 34 · Wołowina 36</span></div>
+  </article>
+  <article class="row">
+    <h3>Curly fries</h3>
+    <p>Przyprawione frytki z serem i chili, ketchup z wędzonej papryki.</p>
+    <p class="en" lang="en">Spiced curly fries with cheese and chilli seasoning, smoked red pepper ketchup.</p>
+    <div class="tab"><span class="price">24 zł</span></div>
+  </article>
 </section>
 
 <section class="band night pad stackpad" id="night">
@@ -311,7 +397,8 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
     <div>
       <p class="eyebrow">Po dwudziestej drugiej</p>
       <h2 class="big">Kuchnia nie<br>zamyka pierwsza</h2>
-      <p class="lede">Koktajle, shoty, piwo i shisha. W niedzielę–czwartek do północy, w piątek i sobotę do drugiej. Jedzenie leci do samego końca — nie wyganiamy nikogo o dwudziestej trzeciej.</p>
+      <p class="lede">Mały bar, kilka stolików na zewnątrz. Koktajle, shoty, piwo i shisha, czasem głośniejsza muzyka. W niedzielę–czwartek do północy, w piątek i sobotę do drugiej. Jedzenie leci do końca — nikogo nie wyganiamy o dwudziestej trzeciej.</p>
+      <p class="lede en" lang="en" style="margin-top:10px">A small bar with a few tables outside. Cocktails, shots, beer and shisha, and some nights it gets loud. Sunday to Thursday till midnight, Friday and Saturday till 2am. The kitchen runs till close.</p>
       <a class="cta light" href="https://chmielna.cocolounge.pl/menu/1/menu">Karta baru i shishy</a>
     </div>
     <figure class="figure" style="border-color:var(--steam)">
@@ -384,23 +471,8 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
 (function(){
   var FORCE=(location.search.match(/tryb=(dzien|noc)/)||[])[1]||'';
   var OPEN=12, CLOSE={0:24,1:24,2:24,3:24,4:24,5:26,6:26};
-  var stack=document.getElementById('stack');
   var dot=document.getElementById('dot'), txt=document.getElementById('liveTxt');
 
-  // build the hour stack: 12:00 -> 01:00, plus a cap
-  var frag=document.createDocumentFragment();
-  for(var h=OPEN; h<=25; h++){
-    var a=document.createElement('a');
-    var real=h%24;
-    a.href = h<16 ? '#board' : (h<22 ? '#board' : '#night');
-    a.dataset.h=h;
-    a.textContent=(real<10?'0':'')+real;
-    frag.appendChild(a);
-  }
-  stack.appendChild(frag);
-  var cap=document.createElement('div');
-  cap.className='stack-cap'; cap.textContent='Otwarte';
-  stack.appendChild(cap);
 
   function warsaw(){
     var f=new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/Warsaw',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -414,17 +486,13 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
     var closeToday=CLOSE[n.d], closeYest=CLOSE[(n.d+6)%7];
     var open=(n.dec>=OPEN && n.dec<closeToday) || (closeYest>24 && n.dec<closeYest-24);
 
-    // normalise "now" onto the 12..25 scale
-    var nowSlot = n.h<OPEN ? n.h+24 : n.h;
-
-    [].forEach.call(stack.querySelectorAll('a'), function(a){
-      var h=parseInt(a.dataset.h,10);
-      a.classList.toggle('now', open && h===nowSlot);
-      a.classList.toggle('shut', h>=closeToday);
-    });
 
     dot.classList.toggle('shut', !open);
-    txt.textContent = open ? 'Otwarte — kuchnia pracuje' : 'Zamknięte — od 12:00';
+    var closeH = closeToday % 24;
+    var closeLabel = (closeH < 10 ? '0' : '') + closeH + ':00';
+    txt.innerHTML = open
+      ? '<b>Otwarte do ' + closeLabel + '</b> <u>· open till ' + closeLabel + '</u>'
+      : '<b>Zamknięte · otwieramy o 12:00</b> <u>· opens at noon</u>';
     if(FORCE==='dzien')      document.body.classList.remove('late');
     else if(FORCE==='noc')   document.body.classList.add('late');
     else document.body.classList.toggle('late', open && (n.dec>=22 || n.dec<6));
