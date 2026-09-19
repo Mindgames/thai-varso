@@ -6,7 +6,7 @@
 <title>Thai Varso — Chmielna, do drugiej</title>
 <meta name="description" content="Momo, curry, ramen. Azjatycka kuchnia i bar przy Chmielnej w Warszawie. Otwarte od 12:00 do północy, w piątek i sobotę do drugiej. Catering dla biur i ekip filmowych.">
 <meta name="theme-color" content="#E7E0EF">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 28 34'%3E%3Crect width='28' height='34' fill='%23E7E0EF'/%3E%3Cg fill='none' stroke='%231B1526' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M9 7.5c0-2.6 2.4-2.4 2.4-5'/%3E%3Cpath d='M14 5.5c0-2.2 2.4-2 2.4-4.3'/%3E%3Cpath d='M19 7.5c0-2.6 2.4-2.4 2.4-5'/%3E%3C/g%3E%3Cg fill='%231B1526'%3E%3Crect x='6.6' y='12' width='15' height='5.2' rx='1.1'/%3E%3Crect x='4.3' y='19.1' width='19.5' height='5.2' rx='1.1'/%3E%3Crect x='2' y='26.2' width='24' height='5.8' rx='1.1'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Crect width='34' height='34' fill='%23E7E0EF'/%3E%3Cg fill='%238E2410'%3E%3Crect x='8' y='5' width='18' height='7' rx='1.2'/%3E%3Crect x='5' y='14' width='24' height='7' rx='1.2'/%3E%3Crect x='2' y='23' width='30' height='7' rx='1.2'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="canonical" href="https://mindgames.github.io/thai-varso/">
 <meta property="og:type" content="restaurant">
 <meta property="og:site_name" content="Thai Varso">
@@ -57,19 +57,13 @@
   --gut:clamp(16px,3.4vw,44px);
   --rule:2px solid var(--ink);
 }
-body.late{
-  --field:var(--night);
-  --on:#F4EFF8; --on-mute:rgba(244,239,248,.86); --on-faint:rgba(244,239,248,.72);
-  --hair:rgba(244,239,248,.34); --accent:#FFC7B4; --price:var(--on);
-  color:var(--on);
-}
 /* islands that keep their own stock, in EITHER mode */
-.band.steam,.spec,.cta,.tl-state,body.late .band.steam,body.late .spec,body.late .cta,body.late .tl-state{
+.band.steam,.spec,.cta,.tl-state{
   --on:#1B1526; --on-mute:rgba(27,21,38,.82); --on-faint:rgba(27,21,38,.72);
   --hair:rgba(27,21,38,.26); --accent:#8E2410; --price:#1B1526; color:var(--on);
 }
 /* islands printed in plate 2 or plate 1 solid */
-.band.night,.buffet,.toplink,body.late .band.night,body.late .buffet,body.late .toplink{
+.band.night,.buffet,.toplink{
   --on:#F4EFF8; --on-mute:rgba(244,239,248,.88); --on-faint:rgba(244,239,248,.76);
   --hair:rgba(244,239,248,.36); --accent:#FFC7B4; --price:var(--on); color:var(--on);
 }
@@ -80,7 +74,6 @@ body{
   margin:0;background:var(--field);color:var(--ink);
   font-family:var(--body);font-size:clamp(15px,.55vw + 13px,17px);line-height:1.5;
   overflow-x:hidden;-webkit-font-smoothing:antialiased;
-  transition:background .8s ease;
 }
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -100,15 +93,15 @@ ul{list-style:none;padding:0}
 .poster{min-height:100svh;display:flex;flex-direction:column;border-bottom:var(--rule)}
 .poster-top{
   display:flex;align-items:flex-start;justify-content:space-between;gap:8px 16px;
-  flex-wrap:wrap;padding-top:14px;padding-bottom:14px;
+  flex-wrap:wrap;padding-top:var(--s-2);padding-bottom:var(--s-2);
 }
-.wordmark{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;align-items:center}
-.wordmark .mk{width:26px;height:auto;grid-row:1/3;color:var(--ink)}
+.wordmark{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;align-items:center}
+.wordmark .mk{width:42px;height:auto;grid-row:1/3;color:var(--accent)}
 .wm-t{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:1.34rem;line-height:1.1;letter-spacing:.02em}
 .wm-t i{font-style:normal;color:var(--accent)}
 .wordmark small{font-family:var(--body);font-weight:400;font-size:.72rem;line-height:1.35;letter-spacing:.01em;max-width:26ch;align-self:start}
 .live{
-  display:flex;align-items:center;gap:9px;padding-top:2px;
+  display:flex;align-items:center;gap:9px;
   font-size:.92rem;font-weight:500;
 }
 .live b{font-weight:500}
@@ -116,7 +109,7 @@ ul{list-style:none;padding:0}
 .live i{width:8px;height:8px;border-radius:50%;background:var(--chilli);display:block}
 .live i.shut{background:rgba(27,21,38,.35)}
 
-.bill{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:14px;min-height:0}
+.bill{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:var(--s-2);min-height:0}
 .line{
   display:flex;align-items:baseline;gap:14px;
   border-top:1px solid var(--hair);padding:1px 0;
@@ -139,7 +132,7 @@ ul{list-style:none;padding:0}
   color:var(--price);font-weight:700;
 }
 .line:hover b,.line:focus-visible b{color:var(--accent)}
-.poster-foot{display:flex;flex-wrap:wrap;gap:8px 22px;padding-bottom:16px;border-top:var(--rule);padding-top:12px}
+.poster-foot{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-3);padding-bottom:var(--s-3);border-top:var(--rule);padding-top:var(--s-2)}
 .poster-foot span{color:var(--on-mute)}
 
 /* ========== BANDS ========== */
@@ -148,7 +141,7 @@ ul{list-style:none;padding:0}
 /* top strip — the offer, before anything else */
 .toplink{
   display:flex;align-items:center;flex-wrap:wrap;gap:6px 18px;
-  padding:12px var(--gut);background:var(--chilli-fill);color:var(--steam);
+  padding:var(--s-2) var(--gut);background:var(--chilli-fill);color:var(--steam);
   text-decoration:none;border-bottom:var(--rule);
 }
 .toplink b{font-weight:700;font-size:1.02rem}
@@ -157,19 +150,19 @@ ul{list-style:none;padding:0}
 .tl-state{
   margin-left:auto;font-family:var(--data);font-weight:700;font-size:var(--t--1);
   background:var(--steam);color:var(--ink);border:2px solid var(--ink);
-  padding:5px 10px;white-space:nowrap;box-shadow:4px 4px 0 var(--ink);
+  padding:var(--s-1) var(--s-2);white-space:nowrap;box-shadow:4px 4px 0 var(--ink);
   transition:box-shadow .1s steps(2,end),transform .1s steps(2,end);
 }
 .toplink:hover .tl-state{box-shadow:0 0 0 var(--ink);transform:translate(4px,4px)}
 @media (max-width:640px){
-  .toplink{gap:4px 12px;padding-block:10px}
+  .toplink{gap:4px 12px;padding-block:var(--s-1)}
   .toplink em{display:none}
   .tl-p{font-size:1.35rem}
   .tl-state{margin-left:0;width:100%;text-align:center;font-size:.76rem}
 }
 
 /* all-you-can-eat strip — the loudest offer on the page */
-.buffet{background:var(--chilli-fill);color:var(--steam);border-bottom:var(--rule);padding-block:clamp(26px,3.4vw,44px)}
+.buffet{background:var(--chilli-fill);color:var(--steam);border-bottom:var(--rule);padding-block:clamp(var(--s-4),3.4vw,var(--s-5))}
 .buffet-in{display:flex;flex-wrap:wrap;align-items:center;gap:14px clamp(20px,4vw,52px)}
 .buffet-txt{flex:1 1 320px;min-width:0}
 .buffet h2{
@@ -210,7 +203,7 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 .split{display:grid;gap:clamp(22px,3vw,48px)}
 .figure{border:var(--rule);background:var(--ink)}
 .figure img{width:100%}
-.figure figcaption{font-size:.8rem;color:rgba(237,240,230,.8);padding:9px 12px;border-top:var(--rule)}
+.figure figcaption{font-size:.8rem;color:rgba(237,240,230,.8);padding:var(--s-1) var(--s-2);border-top:var(--rule)}
 
 /* ========== THE BOARD ========== */
 .hourhead{
@@ -232,8 +225,8 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 
 /* ========== CATERING — order form ========== */
 .spec{border:var(--rule);background:var(--steam)}
-.spec-h{display:flex;justify-content:space-between;gap:12px;padding:11px 14px;border-bottom:var(--rule);font-size:.8rem;font-weight:600;color:var(--on-mute)}
-.spec ul li{display:grid;grid-template-columns:1fr auto;gap:4px 16px;padding:12px 14px;border-bottom:1px solid var(--hair)}
+.spec-h{display:flex;justify-content:space-between;gap:12px;padding:var(--s-2) var(--s-2);border-bottom:var(--rule);font-size:.8rem;font-weight:600;color:var(--on-mute)}
+.spec ul li{display:grid;grid-template-columns:1fr auto;gap:5px var(--s-2);padding:var(--s-2);border-bottom:1px solid var(--hair)}
 .spec ul li:last-child{border-bottom:0}
 .spec b{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:1.12rem;line-height:1.18}
 .spec em{font-style:normal;font-family:var(--data);font-weight:700;font-size:.86rem;color:var(--price);white-space:nowrap;grid-column:2;grid-row:1}
@@ -248,7 +241,7 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
   background:var(--steam);color:var(--ink);border:var(--rule);
   font-family:var(--poster);font-weight:800;text-transform:uppercase;
   font-size:var(--t-2);letter-spacing:.02em;line-height:1.18;
-  padding:11px 21px;text-decoration:none;
+  padding:var(--s-2) var(--s-3);text-decoration:none;
   box-shadow:6px 6px 0 var(--chilli-bright);
   transition:box-shadow .1s steps(2,end),transform .1s steps(2,end);
 }
@@ -258,15 +251,15 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 /* ========== FOOT ========== */
 .foot{padding-block:clamp(30px,4vw,56px)}
 .hours{width:100%;border-collapse:collapse;max-width:420px}
-.hours td{padding:8px 0;border-bottom:1px solid var(--hair);font-size:.9rem}
+.hours td{padding:var(--s-1) 0;border-bottom:1px solid var(--hair);font-size:.9rem}
 .hours td:last-child{font-family:var(--data);font-size:.82rem}
 .hours td:last-child{text-align:right}
 .hours tr.today td{color:var(--accent);font-weight:700}
 .foot a{font-size:.94rem;color:var(--price);text-decoration:none;border-bottom:1.5px solid var(--price)}
 .foot a:hover{color:var(--accent);border-color:var(--accent)}
-.fine{margin-top:30px;font-size:.76rem;color:var(--on-faint);max-width:76ch;border-top:var(--rule);padding-top:14px}
+.fine{margin-top:30px;font-size:.76rem;color:var(--on-faint);max-width:76ch;border-top:var(--rule);padding-top:var(--s-2)}
 
-a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offset:3px}
+a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 
 @media (min-width:860px){
   .split{grid-template-columns:1fr 1fr;align-items:start}
@@ -274,9 +267,6 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
 }
 @media (max-width:859px){
   :root{--stack-w:44px}
-  .stack a{font-size:.5rem;padding-left:5px}
-  .stack a::after{display:none}
-  .stack-cap{display:none}
   .live{order:3;width:100%;padding-top:0}
   .bill{justify-content:flex-start;padding-top:6vh}
   .row{grid-template-columns:1fr}
@@ -357,7 +347,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
 
 <header class="poster pad stackpad">
   <div class="poster-top">
-    <h1 class="wordmark"><svg class="mk" viewBox="0 0 28 34" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 7.5c0-2.6 2.4-2.4 2.4-5"/><path d="M14 5.5c0-2.2 2.4-2 2.4-4.3"/><path d="M19 7.5c0-2.6 2.4-2.4 2.4-5"/></g><g fill="currentColor"><rect x="6.6" y="12" width="15" height="5.2" rx="1.1"/><rect x="4.3" y="19.1" width="19.5" height="5.2" rx="1.1"/><rect x="2" y="26.2" width="24" height="5.8" rx="1.1"/></g></svg><span class="wm-t">Thai<i>·</i>Varso</span>
+    <h1 class="wordmark"><svg class="mk" viewBox="0 0 34 40" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M10.5 8.5c0-3 2.8-2.8 2.8-5.8"/><path d="M17 6.2c0-2.6 2.8-2.4 2.8-5"/><path d="M23.5 8.5c0-3 2.8-2.8 2.8-5.8"/></g><g fill="currentColor"><rect x="8" y="14" width="18" height="6.6" rx="1.2"/><rect x="5" y="23" width="24" height="6.6" rx="1.2"/><rect x="2" y="32" width="30" height="7" rx="1.2"/></g></svg><span class="wm-t">Thai<i>·</i>Varso</span>
       <small>Momo, curry, ramen. Chmielna. Do drugiej.</small>
     </h1>
     <p class="live"><i id="dot"></i><span id="liveTxt">Chmielna, Warszawa</span></p>
@@ -608,7 +598,6 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
 
 <script>
 (function(){
-  var FORCE=(location.search.match(/tryb=(dzien|noc)/)||[])[1]||'';
   var OPEN=12, CLOSE={0:24,1:24,2:24,3:24,4:24,5:26,6:26};
   var dot=document.getElementById('dot'), txt=document.getElementById('liveTxt');
 
@@ -632,9 +621,6 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
     txt.innerHTML = open
       ? '<b>Otwarte do ' + closeLabel + '</b> <u>· open till ' + closeLabel + '</u>'
       : '<b>Zamknięte · otwieramy o 12:00</b> <u>· opens at noon</u>';
-    if(FORCE==='dzien')      document.body.classList.remove('late');
-    else if(FORCE==='noc')   document.body.classList.add('late');
-    else document.body.classList.toggle('late', open && (n.dec>=22 || n.dec<6));
 
     [].forEach.call(document.querySelectorAll('#hoursBody tr'), function(r){
       r.classList.toggle('today', parseInt(r.dataset.d,10)===n.d);
