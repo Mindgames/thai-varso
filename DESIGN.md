@@ -295,6 +295,42 @@ and checking for overflow, not by recalculating on paper.
 |---|---|---|
 | `--chilli-pale` | `#FFC7B4` | Accent text on solid dark fills (`.band.night`, `.buffet`, `.toplink`). Light enough to read on ink at any size, so it doesn't need the small-text contrast checks the darker accent values do. |
 
+## The section-by-section walk (what a script can't see)
+
+After three rounds where every automated check passed and the client still
+found real flaws, the fix was not another script. It was screenshotting all
+twelve viewport-heights of the page at desktop and three at mobile and
+reading them the way a designer reads a proof. Eleven findings, none of
+which a contrast or size audit could have flagged:
+
+1. **The "open" dot was red.** Red is stop/closed in every UI convention on
+   earth. Now: a filled ink dot means open, a hollow one means closed. And
+   the breathing animation no longer fades it to 35% -- on a dark dot that
+   reads as *disabled*, the opposite of its job. Floor is 65%.
+2. **`25  zł` looked like a double space** inside prose. Space Mono's space
+   is a full character cell, so a mono price dropped into proportional text
+   gaps like a typo. `word-spacing:-.3em` on every mono price element.
+3. **The level meter floated orphaned** below the walk-in line like a broken
+   icon. It now sits inline at the end of that sentence as a small glyph.
+4. **The momo photo was shorter than its text column**, floating at the top
+   with dead space under it. `.split .figure{align-self:stretch}` and the
+   image flexes to fill.
+5. **Widows.** "piętnastej." alone on a line, "Z / frytkami." split.
+   `text-wrap:pretty` on every prose block.
+6. **Hourhead labels sat 1300px from their time**, in what is otherwise the
+   price column. "Lunch" now sits beside "12–16", in faint ink.
+7. **Prices floated above the dish name's baseline.** The eye expects name
+   and price on one line. `.tab{display:contents}` at desktop so price and
+   swap become direct grid items: price shares row 1 with the `h3` on a
+   baseline alignment; swap options sit in row 2, level with the description.
+8. English descriptions .833rem -> .9rem.
+9. **Six beers with one-word descriptions took six full dish-height rows.**
+   `.barrow` rows get tighter padding and the Piwo / Mocktails groups sit in
+   a two-column `.bargrid`. Page height 10878px -> 9903px.
+10. **`12:00–15:00` broke across lines at the dash** on mobile. `.nowrap`.
+11. The `.overflow` audit itself needed fixing: `display:contents` parents
+    have no box, so their children "overflowed" a zero-width rect. Skip them.
+
 ## Bar & Shisha
 
 Built as real on-page content, not a link out. Curated from the venue's own

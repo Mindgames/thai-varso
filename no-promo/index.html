@@ -110,6 +110,7 @@ ul{list-style:none;padding:0}
 .stackpad{padding-right:var(--gut)}
 
 .mono{font-size:.92rem;letter-spacing:.01em;color:var(--on-mute)}
+.nowrap{white-space:nowrap}
 .big{
   font-family:var(--poster);font-weight:800;text-transform:uppercase;
   line-height:1.12;letter-spacing:.005em;  /* accented caps span 1.15em ink — never go below ~1.1 */
@@ -132,8 +133,8 @@ ul{list-style:none;padding:0}
 }
 .live b{font-weight:500}
 .live u{text-decoration:none;color:var(--on-faint);font-weight:400}
-.live i{width:8px;height:8px;border-radius:50%;background:var(--chilli);display:block}
-.live i.shut{background:rgba(27,21,38,.35)}
+.live i{width:10px;height:10px;border-radius:50%;background:var(--ink);border:2px solid var(--ink);box-sizing:border-box;display:block}
+.live i.shut{background:transparent;opacity:.55}
 
 .bill{flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:var(--s-4) var(--s-2);min-height:0}
 .line{
@@ -195,7 +196,7 @@ ul{list-style:none;padding:0}
   font-family:var(--poster);font-weight:800;text-transform:uppercase;line-height:1.1;
   font-size:clamp(1.9rem,5.6vw,3.6rem);margin:0 0 16px;
 }
-.buffet p{margin:0;font-size:clamp(1.06rem,1.5vw,1.2rem);font-weight:600}
+.buffet p{margin:0;font-size:clamp(1.06rem,1.5vw,1.2rem);font-weight:600;text-wrap:pretty}
 .buffet p.en{font-weight:500;color:var(--on-mute);margin-top:6px}
 .buffet .tag{
   font-family:var(--poster);font-weight:900;line-height:.9;
@@ -204,16 +205,17 @@ ul{list-style:none;padding:0}
 .buffet .tag small{display:block;font-family:var(--body);font-size:.95rem;font-weight:600;letter-spacing:.01em;margin-top:6px}
 
 /* 128 BPM. Flat bars, stepped timing — a printed level meter, not a flourish. */
-.beat{display:inline-flex;align-items:flex-end;gap:4px;height:22px;vertical-align:-4px}
+.beat{display:inline-flex;align-items:flex-end;gap:3px;height:14px;vertical-align:-1px;margin-left:var(--s-2)}
 .beat i{width:5px;background:var(--steam);height:100%;transform-origin:bottom;animation:bt .469s steps(2,jump-none) infinite}
 .beat i:nth-child(2){animation-delay:-.352s}
 .beat i:nth-child(3){animation-delay:-.235s}
 .beat i:nth-child(4){animation-delay:-.117s}
 @keyframes bt{0%{transform:scaleY(1)}50%{transform:scaleY(.3)}100%{transform:scaleY(1)}}
-.bpm{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-family:var(--data);font-weight:700;font-size:.9rem}
 .buffet .anchor{margin-top:16px;font-size:1.04rem;font-weight:600;line-height:1.45}
 .buffet .anchor s{font-family:var(--data);text-decoration:line-through;opacity:.62}
 .buffet .anchor b{font-family:var(--data);font-weight:700}
+/* monospace space is a full character cell; pull it back to a normal word gap */
+.line em,.row .price,.spec em,.terms i,.buffet .anchor b,.buffet .anchor s{word-spacing:-.3em}
 .buffet .anchor.en{margin-top:var(--s-1);font-size:var(--t-0);font-weight:500;color:var(--on-mute)}
 .buffet .noreserve{margin-top:14px;font-size:1rem;font-weight:700}
 .buffet .noreserve span{font-weight:500;color:var(--on-mute)}
@@ -222,12 +224,13 @@ ul{list-style:none;padding:0}
 
 .eyebrow{font-size:var(--t--1);font-weight:600;letter-spacing:.05em;color:var(--accent);margin-bottom:var(--s-3)}
 h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-spacing:-.005em}
-.lede{font-size:clamp(var(--t-0),1.5vw,var(--t-1));line-height:1.55;max-width:46ch;color:var(--on-mute)}
+.lede{font-size:clamp(var(--t-0),1.5vw,var(--t-1));line-height:1.55;max-width:46ch;color:var(--on-mute);text-wrap:pretty}
 .lede.en{font-size:.96rem;color:var(--on-faint);margin-top:8px}
 
 .split{display:grid;gap:clamp(22px,3vw,48px)}
-.figure{border:var(--rule);background:var(--ink)}
-.figure img{width:100%}
+.figure{border:var(--rule);background:var(--ink);display:flex;flex-direction:column}
+.figure img{width:100%;flex:1;min-height:0;object-fit:cover}
+.split .figure{align-self:stretch}
 .figure figcaption{font-size:.8rem;color:var(--steam);padding:var(--s-1) var(--s-2);border-top:var(--rule)}
 
 /* ========== THE BOARD ========== */
@@ -236,14 +239,14 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
   border-bottom:var(--rule);padding-bottom:var(--s-1);
 }
 .hourhead b{font-family:var(--poster);font-weight:800;text-transform:uppercase;font-size:clamp(1.3rem,3.4vw,2.1rem);line-height:1.1}
-.hourhead span{font-size:.84rem;font-weight:500;color:var(--price);margin-left:auto;text-align:right}
+.hourhead span{font-size:.84rem;font-weight:500;color:var(--on-faint);margin-left:var(--s-1);align-self:baseline}
 .row{padding:var(--s-3) 0;border-bottom:1px solid var(--hair)}
 .row h3{
   font-family:var(--poster);font-weight:700;text-transform:uppercase;
   font-size:clamp(var(--t-2),2.7vw,var(--t-3));line-height:1.12;letter-spacing:.01em;margin-bottom:var(--s-1);
 }
-.row p{font-size:var(--t-0);line-height:1.5;color:var(--on-mute);max-width:60ch;margin:0}
-.row .en{font-size:var(--t--1);line-height:1.45;color:var(--on-faint);max-width:60ch;margin-top:5px}
+.row p{font-size:var(--t-0);line-height:1.5;color:var(--on-mute);max-width:60ch;margin:0;text-wrap:pretty}
+.row .en{font-size:.9rem;line-height:1.45;color:var(--on-faint);max-width:60ch;margin-top:5px;text-wrap:pretty}
 .row .tab{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px var(--s-2);margin-top:var(--s-2)}
 .row .price{font-family:var(--data);font-weight:700;font-size:var(--t-2);color:var(--price)}
 .row .swap{font-size:var(--t--1);color:var(--accent)}
@@ -255,7 +258,7 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 .spec ul li:last-child{border-bottom:0}
 .spec b{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:1.12rem;line-height:1.18}
 .spec em{font-style:normal;font-family:var(--data);font-weight:700;font-size:1.3rem;color:var(--price);white-space:nowrap;grid-column:2;grid-row:1}
-.spec small{grid-column:1/-1;font-size:.86rem;color:var(--on-mute)}
+.spec small{grid-column:1/-1;font-size:.86rem;color:var(--on-mute);text-wrap:pretty}
 .terms{margin-top:22px;display:grid;gap:9px}
 .terms li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
 .terms i{font-style:normal;font-family:var(--data);font-weight:700;font-size:1.05rem;color:var(--accent);white-space:nowrap}
@@ -298,13 +301,15 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
     display:grid;
     grid-template-columns:minmax(0,60ch) 1fr auto;
     column-gap:var(--s-5);
-    align-items:end;
+    align-items:start;
   }
   .row h3,.row p{grid-column:1}
-  .row .tab{
-    grid-column:3;grid-row:1/-1;margin-top:0;
-    flex-direction:column;align-items:flex-end;text-align:right;
-  }
+  .row h3{align-self:baseline}
+  .row .tab{display:contents}
+  .row .price{grid-column:3;grid-row:1;align-self:baseline;justify-self:end;white-space:nowrap}
+  .row .swap{grid-column:3;grid-row:2;justify-self:end;text-align:right;align-self:start;margin-top:0}
+  .barrow{padding:var(--s-2) 0}
+  .bargrid{display:grid;grid-template-columns:1fr 1fr;column-gap:var(--s-6)}
 }
 @media (max-width:859px){
   :root{--stack-w:44px}
@@ -342,7 +347,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   .poster-foot{animation:press .5s ease-out .54s both}
 
   /* the open/closed dot, breathing slowly */
-  @keyframes bre{0%,100%{opacity:1}50%{opacity:.35}}
+  @keyframes bre{0%,100%{opacity:1}50%{opacity:.65}}
   .live i{animation:bre 2.6s ease-in-out infinite}
   .live i.shut{animation:none}
 
@@ -614,6 +619,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   </article>
 
   <div class="hourhead"><b>Piwo</b><span>Wybór</span></div>
+  <div class="bargrid">
   <article class="row barrow"><h3>Heineken</h3>
     <p>Butelka 0,5 l.</p>
     <div class="tab"><span class="price">20 zł</span></div>
@@ -639,7 +645,9 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
     <div class="tab"><span class="price">18 zł</span></div>
   </article>
 
+  </div>
   <div class="hourhead"><b>Mocktails</b><span>Bez alkoholu</span></div>
+  <div class="bargrid">
   <article class="row barrow"><h3>Guava Mary</h3>
     <p>Sok z gujawy i sól himalajska.</p>
     <div class="tab"><span class="price">29 zł</span></div>
@@ -657,6 +665,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
     <div class="tab"><span class="price">28 zł</span></div>
   </article>
 
+  </div>
   <p class="lede" style="margin-top:var(--s-4)">Na miejscu też pełna karta: wódki, whisky, rum, tequila, gin, wina i likiery — zapytaj barmana.</p>
   <p class="lede en" lang="en" style="margin-top:8px">Also on hand: vodka, whisky, rum, tequila, gin, wines and liqueurs — ask the bartender.</p>
 </section>
