@@ -33,7 +33,7 @@ Purple is the client's call. It is done as a **flat field**, never a gradient.
 
 | Token | Hex | Role |
 |---|---|---|
-| `--paper` | `#D3C4E2` | The field. Lilac stock. |
+| `--paper` | `#E7E0EF` | The field. Soft lilac stock — purple as a tint, not a flood. |
 | `--ink` | `#1B1526` | Plate 1. All type and rules. Violet-cast black, 10.8:1 on the field. |
 | `--chilli` | `#8E2410` | Plate 2 as **text** — accents on lilac, 5.3:1. |
 | `--chilli-fill` | `#B02D12` | Plate 2 as a **fill** — bands, with `--steam` type at 5.74:1. |
@@ -59,6 +59,35 @@ body.late { --accent: var(--steam); --price: var(--steam); }      /* night */
 
 Never reference `--chilli*` or `--ink` directly in a component, or the night state
 breaks.
+
+## Text colour is declared per SURFACE, never per element
+
+This is the rule that matters most, because breaking it produced invisible text
+on the live site.
+
+```css
+:root      { --on:#1B1526; --on-mute:…; --on-faint:…; --hair:…; --accent:#8E2410 }
+body.late  { --on:#F4EFF8; … }                    /* the deep-grape page */
+.band.steam, .spec, .cta, .tl-state { --on:#1B1526; … }   /* light islands  */
+.band.night, .buffet, .toplink      { --on:#F4EFF8; … }   /* printed solid  */
+```
+
+Components only ever use `var(--on)`, `var(--on-mute)`, `var(--on-faint)`,
+`var(--hair)`, `var(--accent)`, `var(--price)`. They never write a colour.
+
+**What went wrong before.** Text colours were hardcoded per element, and night mode
+flipped `color` on `body`. The light paper panels — the momo band, the catering spec
+— kept their light background and inherited light text. An audit of every text node
+against its *resolved* background found **26 failures by day and 31 at night, many at
+ratio 1.00**: text exactly the colour of the surface behind it. Invisible.
+
+With surface tokens, a light panel dropped into a dark page re-declares its own ink
+and stays readable. The bug class cannot recur.
+
+**Check it before shipping.** Walk every text node, resolve the background up the
+tree through transparency, and compare against 4.5:1 (3:1 for large or bold text).
+Do not eyeball it — two of these were invisible and neither was noticed by reading
+the page. Current state: **0 failures in both modes.**
 
 ## Proportion
 
