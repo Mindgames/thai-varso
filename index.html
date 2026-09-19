@@ -271,6 +271,68 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--ticket);outline-offs
   .row{grid-template-columns:1fr}
   .row .price{grid-column:1;grid-row:auto}
 }
+
+/* ============ MOTION ============================================
+   All of it compositor-only (transform/opacity) and CSS-only — no JS,
+   no libraries, no scroll listeners. Every hidden start state lives
+   inside `no-preference`, so reduced-motion users get a fully visible
+   page rather than a blank one.
+   ================================================================ */
+@media (prefers-reduced-motion:no-preference){
+
+  /* the press run: eight lines registering in sequence on load */
+  @keyframes press{
+    from{opacity:0;transform:translate3d(-18px,0,0)}
+    to  {opacity:1;transform:translate3d(0,0,0)}
+  }
+  .bill .line{opacity:0;animation:press .52s cubic-bezier(.2,.75,.3,1) both}
+  .bill .line:nth-child(1){animation-delay:.05s}
+  .bill .line:nth-child(2){animation-delay:.11s}
+  .bill .line:nth-child(3){animation-delay:.17s}
+  .bill .line:nth-child(4){animation-delay:.23s}
+  .bill .line:nth-child(5){animation-delay:.29s}
+  .bill .line:nth-child(6){animation-delay:.35s}
+  .bill .line:nth-child(7){animation-delay:.41s}
+  .bill .line:nth-child(8){animation-delay:.47s}
+
+  /* masthead and offer strip arrive first */
+  @keyframes drop{from{opacity:0;transform:translate3d(0,-8px,0)}to{opacity:1;transform:none}}
+  .toplink{animation:drop .4s ease-out both}
+  .poster-top{animation:drop .45s ease-out .06s both}
+  .poster-foot{animation:press .5s ease-out .54s both}
+
+  /* the open/closed dot, breathing slowly */
+  @keyframes bre{0%,100%{opacity:1}50%{opacity:.35}}
+  .live i{animation:bre 2.6s ease-in-out infinite}
+  .live i.shut{animation:none}
+
+  /* scroll-driven reveals: native, off the main thread, no JS.
+     Unsupported browsers simply show the content. */
+  @supports (animation-timeline:view()){
+    @keyframes enter{
+      from{opacity:0;transform:translate3d(0,22px,0)}
+      to  {opacity:1;transform:translate3d(0,0,0)}
+    }
+    .band .split,
+    .band > .eyebrow,
+    .band > h2.big,
+    .band > .lede,
+    .hourhead,
+    .spec,
+    .buffet-in,
+    .figure{
+      animation:enter linear both;
+      animation-timeline:view();
+      animation-range:entry 4% entry 38%;
+    }
+  }
+}
+
+/* the second plate slips — print misregistration, painted only on hover */
+.line b{will-change:auto}
+.line:hover b,.line:focus-visible b{text-shadow:3px 0 0 var(--chilli-bright)}
+.line b{transition:color .18s,text-shadow .12s steps(2,end)}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
