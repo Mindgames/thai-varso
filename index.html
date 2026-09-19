@@ -56,6 +56,7 @@
   --chilli-fill:#B02D12;   /* plate 2 as a FILL — steam type on it is 5.74:1 */
   --chilli-bright:#E2401C; /* plate 2 full strength — display + photo midtone only */
   --steam:#F4EFF8;
+  --chilli-pale:#FFC7B4; /* accent text on solid dark fills -- light enough to read on ink at any size */
   --night:#3B2357;         /* the field after 22:00 — deep grape, 11.9:1 with paper */
 
   --field:var(--paper);
@@ -90,7 +91,7 @@
 /* islands printed in plate 2 or plate 1 solid */
 .band.night,.buffet,.toplink{
   --on:#F4EFF8; --on-mute:rgba(244,239,248,.88); --on-faint:rgba(244,239,248,.76);
-  --hair:rgba(244,239,248,.36); --accent:#FFC7B4; --price:var(--on); color:var(--on);
+  --hair:rgba(244,239,248,.36); --accent:var(--chilli-pale); --price:var(--on); color:var(--on);
 }
 
 *{box-sizing:border-box}
@@ -108,7 +109,7 @@ ul{list-style:none;padding:0}
 .pad{padding-inline:var(--gut)}
 .stackpad{padding-right:var(--gut)}
 
-.mono{font-size:.8rem;letter-spacing:.01em;color:var(--on-mute)}
+.mono{font-size:.92rem;letter-spacing:.01em;color:var(--on-mute)}
 .big{
   font-family:var(--poster);font-weight:800;text-transform:uppercase;
   line-height:1.12;letter-spacing:.005em;  /* accented caps span 1.15em ink — never go below ~1.1 */
@@ -118,13 +119,13 @@ ul{list-style:none;padding:0}
 .poster{min-height:100svh;display:flex;flex-direction:column;border-bottom:var(--rule)}
 .poster-top{
   display:flex;align-items:flex-start;justify-content:space-between;gap:8px 16px;
-  flex-wrap:wrap;padding-top:var(--s-2);padding-bottom:var(--s-2);
+  flex-wrap:wrap;padding-top:var(--s-3);padding-bottom:var(--s-3);
 }
 .wordmark{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;align-items:center}
 .wordmark .mk{width:42px;height:auto;grid-row:1/3;color:var(--accent)}
 .wm-t{font-family:var(--poster);font-weight:900;text-transform:uppercase;font-size:1.34rem;line-height:1.1;letter-spacing:.02em}
 .wm-t i{font-style:normal;color:var(--accent)}
-.wordmark small{font-family:var(--body);font-weight:400;font-size:.72rem;line-height:1.35;letter-spacing:.01em;max-width:26ch;align-self:start}
+.wordmark small{font-family:var(--body);font-weight:400;font-size:.85rem;line-height:1.4;letter-spacing:.01em;max-width:26ch;align-self:start}
 .live{
   display:flex;align-items:center;gap:9px;
   font-size:.92rem;font-weight:500;
@@ -134,7 +135,7 @@ ul{list-style:none;padding:0}
 .live i{width:8px;height:8px;border-radius:50%;background:var(--chilli);display:block}
 .live i.shut{background:rgba(27,21,38,.35)}
 
-.bill{flex:1;display:flex;flex-direction:column;justify-content:center;padding-bottom:var(--s-2);min-height:0}
+.bill{flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:var(--s-4) var(--s-2);min-height:0}
 .line{
   display:flex;align-items:baseline;gap:14px;
   border-top:1px solid var(--hair);padding:1px 0;
@@ -146,7 +147,7 @@ ul{list-style:none;padding:0}
   /* sized from BOTH axes: longest word must fit the column, 8 lines must fit the screen */
   font-size:clamp(1.75rem,
       min(calc((100vw - var(--gut)*2 - 110px) / 4.7),
-          calc((100svh - 225px) * .132)),
+          calc((100svh - 310px) * .132)),
       7rem);
   line-height:.92;letter-spacing:.004em;
   transition:color .18s;
@@ -191,7 +192,7 @@ ul{list-style:none;padding:0}
 .buffet-in{display:flex;flex-wrap:wrap;align-items:center;gap:14px clamp(20px,4vw,52px)}
 .buffet-txt{flex:1 1 320px;min-width:0}
 .buffet h2{
-  font-family:var(--poster);font-weight:900;text-transform:uppercase;line-height:1.1;
+  font-family:var(--poster);font-weight:800;text-transform:uppercase;line-height:1.1;
   font-size:clamp(1.9rem,5.6vw,3.6rem);margin:0 0 16px;
 }
 .buffet p{margin:0;font-size:clamp(1.06rem,1.5vw,1.2rem);font-weight:600}
@@ -218,7 +219,6 @@ ul{list-style:none;padding:0}
 .buffet .noreserve span{font-weight:500;color:var(--on-mute)}
 .band.steam{background:var(--steam)}
 .band.night{background:var(--ink);color:var(--steam)}
-.band.night .row{border-color:rgba(237,240,230,.24)}
 
 .eyebrow{font-size:var(--t--1);font-weight:600;letter-spacing:.05em;color:var(--accent);margin-bottom:var(--s-3)}
 h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-spacing:-.005em}
@@ -228,7 +228,7 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 .split{display:grid;gap:clamp(22px,3vw,48px)}
 .figure{border:var(--rule);background:var(--ink)}
 .figure img{width:100%}
-.figure figcaption{font-size:.8rem;color:rgba(237,240,230,.8);padding:var(--s-1) var(--s-2);border-top:var(--rule)}
+.figure figcaption{font-size:.8rem;color:var(--steam);padding:var(--s-1) var(--s-2);border-top:var(--rule)}
 
 /* ========== THE BOARD ========== */
 .hourhead{
@@ -254,11 +254,11 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 .spec ul li{display:grid;grid-template-columns:1fr auto;gap:6px var(--s-3);padding:var(--s-2) var(--s-3);border-bottom:1px solid var(--hair)}
 .spec ul li:last-child{border-bottom:0}
 .spec b{font-family:var(--poster);font-weight:700;text-transform:uppercase;font-size:1.12rem;line-height:1.18}
-.spec em{font-style:normal;font-family:var(--data);font-weight:700;font-size:.86rem;color:var(--price);white-space:nowrap;grid-column:2;grid-row:1}
+.spec em{font-style:normal;font-family:var(--data);font-weight:700;font-size:1.3rem;color:var(--price);white-space:nowrap;grid-column:2;grid-row:1}
 .spec small{grid-column:1/-1;font-size:.86rem;color:var(--on-mute)}
 .terms{margin-top:22px;display:grid;gap:9px}
 .terms li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline}
-.terms i{font-style:normal;font-family:var(--data);font-weight:700;font-size:.84rem;color:var(--accent);white-space:nowrap}
+.terms i{font-style:normal;font-family:var(--data);font-weight:700;font-size:1.05rem;color:var(--accent);white-space:nowrap}
 .terms span{font-size:.94rem;color:var(--on-mute)}
 
 .cta{
@@ -278,7 +278,7 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 .hours{width:100%;border-collapse:collapse;max-width:420px;table-layout:fixed}
 .hours td:first-child{width:58%}
 .hours td:last-child{width:42%}
-.hours td{padding:var(--s-1) 0;border-bottom:1px solid var(--hair);font-size:.9rem}
+.hours td{padding:var(--s-1) 0;border-bottom:1px solid var(--hair);font-size:1rem}
 .hours td:last-child{font-family:var(--data);font-size:.82rem}
 .hours td:last-child{text-align:right}
 .hours tr.today td{color:var(--accent);font-weight:700}
@@ -762,9 +762,13 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 
     dot.classList.toggle('shut', !open);
     var closeH = closeToday % 24;
-    var closeLabel = (closeH < 10 ? '0' : '') + closeH + ':00';
+    var plClose, enClose;
+    if(closeH===0){ plClose='północy'; enClose='midnight'; }
+    else if(closeH===12){ plClose='12:00'; enClose='noon'; }
+    else if(closeH<12){ plClose=(closeH<10?'0':'')+closeH+':00'; enClose=closeH+'am'; }
+    else { plClose=closeH+':00'; enClose=(closeH-12)+'pm'; }
     txt.innerHTML = open
-      ? '<b>Otwarte do ' + closeLabel + '</b> <u>· open till ' + closeLabel + '</u>'
+      ? '<b>Otwarte do ' + plClose + '</b> <u>· open till ' + enClose + '</u>'
       : '<b>Zamknięte · otwieramy o 12:00</b> <u>· opens at noon</u>';
 
     [].forEach.call(document.querySelectorAll('#hoursBody tr'), function(r){

@@ -223,6 +223,78 @@ Recipe in `tools/tritone.py`. Shadows `#1E1B16` → mid `#E8471F` at 55% → hig
    available to a restaurant in 2026. It's now: *Momo, curry, ramen. Chmielna. Do
    drugiej.*
 
+## Why "0 contrast failures" wasn't the same as "actually fine"
+
+A round of user feedback ("colors off, prices almost impossible to read,
+different font weight on menu items") landed after the automated contrast
+audit had already reported zero failures three commits running. The audit
+was correct and also useless for this -- it only proves colour A on colour B
+clears a ratio. It says nothing about whether a colour is one of the
+documented tokens, whether a price is legible at a glance, or whether two
+headings that should match actually do.
+
+Built three more targeted checks instead of trusting the one that had
+already missed real bugs:
+
+**Undocumented colour audit.** Walk every rendered text colour on the page,
+convert to hex, and diff against the token list in `:root`. Found two:
+`#FFC7B4` hardcoded directly in a component instead of declared as a token
+(promoted to `--chilli-pale`, documented in the table below), and
+`rgba(237,240,230,.8)` -- the *old* steam value from a discarded palette,
+sitting in `.figure figcaption` and a dead `.band.night .row` override that
+was actively fighting the current `var(--hair)` token with a stale colour
+at the wrong alpha. Both replaced with the real token.
+
+**Size-by-role audit.** Walk every text node, classify it as price / caption
+/ body by class name, and flag anything under a role-appropriate minimum.
+This is what actually found the bug: the catering panel's prices
+(`.spec em`) were rendering at **13.8px** while the main menu's prices sat
+at **23px** -- the same kind of information, 40% smaller, for no reason
+tied to hierarchy. Also caught: the momo/catering-terms price tags
+(`.terms i`, 13.4px), the header tagline (11.5px), and the address/info
+line at the bottom of the hero (12.8px, riding on a `.mono` base shared by
+nothing else, so bumping it broke nothing). Left untouched: the hourhead
+category dividers ("Lunch", "Wybór") and table headers ("Zestaw") -- those
+are genuinely caption-scale UI, not prices, and passed contrast at their
+size.
+
+**Weight-by-role audit.** Walk every heading-class element, group by
+selector, and diff computed `font-weight`. Found the buffet band's `h2` at
+900 while every other section heading -- `h2.big`, the hero bill items, the
+hourhead dividers -- sits at 800. Big Shoulders Display ships both weights
+as real instances (not synthesized), so this wasn't a font-loading bug, it
+was an undocumented, arbitrary one-off. Aligned to 800; the wordmark stays
+at 900 as the one deliberate exception, since a brand mark earning more
+weight than body content is a real convention, not an inconsistency.
+
+**The status line was repeating itself.** "Otwarte do 00:00 · open till
+00:00" -- and any other close time -- always shows the identical digits
+twice in one short line, because a clock reading doesn't need translating
+and I was translating everything BUT the number. That reads as a glitch
+before anyone parses the surrounding words. Fixed by never showing the same
+digits twice: round hours get a real word instead of a number in each
+language (`północy` / `midnight`, `12:00` / `noon`), and off-hours get a
+locale-appropriate format instead of the same 24h string (`02:00` PL,
+`2am` EN). No code path ever prints the same character sequence for both
+halves of the line again.
+
+**The header felt squeezed** because `.bill` centred its content vertically
+inside the poster (`justify-content:center`) with no minimum top padding --
+as the bill's own content grows to nearly fill the viewport (by design, it
+targets ~90%), the *remaining* space split top and bottom shrinks toward
+nothing, so the gap between the header and the first giant dish name
+approached zero exactly when the page was working as intended. Fixed by
+giving `.bill` an explicit `padding-top` so a minimum gap is guaranteed
+regardless of how tall the content grows, and widening `.poster-top`'s own
+padding to match the page's established rhythm. This moved the height
+formula's fixed-chrome constant (main: 225px -> 310px; no-promo: -> 290px,
+it lacks the top strip) -- re-tuned by testing at five real viewport sizes
+and checking for overflow, not by recalculating on paper.
+
+| Token | Hex | Role |
+|---|---|---|
+| `--chilli-pale` | `#FFC7B4` | Accent text on solid dark fills (`.band.night`, `.buffet`, `.toplink`). Light enough to read on ink at any size, so it doesn't need the small-text contrast checks the darker accent values do. |
+
 ## Bar & Shisha
 
 Built as real on-page content, not a link out. Curated from the venue's own
