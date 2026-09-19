@@ -223,6 +223,49 @@ Recipe in `tools/tritone.py`. Shadows `#1E1B16` → mid `#E8471F` at 55% → hig
    available to a restaurant in 2026. It's now: *Momo, curry, ramen. Chmielna. Do
    drugiej.*
 
+## Bar & Shisha
+
+Built as real on-page content, not a link out. Curated from the venue's own
+live menu system (shisha tiers, 8 cocktails, 6 beers, 4 mocktails) using the
+same editorial rule as the food board: representative, not exhaustive. Full
+spirits shelf (vodka, whisky, rum, tequila, gin, wines, liqueurs) is named but
+not itemised -- a 100-SKU brand list has no place on a one-page poster, and a
+printed bar menu routinely says "ask your bartender" for the same reason.
+
+Reuses the `.row` component from the food board rather than inventing a new
+one -- bar items get a single description line (ingredient list) instead of
+the food board's PL/EN pair, since a cocktail's ingredients don't need
+translating the way a dish description does.
+
+## No external links
+
+The page used to link out to the venue's existing menu system
+(chmielna.cocolounge.pl) for "see full menu," "bar & shisha menu," and the
+allergen list. All three are now internal anchors (`#board`) or removed
+outright, now that the page actually contains that content itself. Checked
+every occurrence with `grep -n "cocolounge.pl"` before considering this done
+-- two were easy to find (the two visible buttons) and one was easy to miss
+(the `hasMenu` field in the JSON-LD, which doesn't render but is still a
+link out as far as a crawler is concerned).
+
+## The no-promo variant
+
+`no-promo/index.html` is the same page with the buffet strip, buffet band,
+and buffet JS removed entirely -- not hidden, removed, so there's no dead
+"if buffet exists" branching to maintain. It is a real second page with its
+own canonical URL and its own JSON-LD identity, not a duplicate the crawler
+has to disambiguate.
+
+It is generated FROM the fixed main file, never edited by hand -- every fix
+made to the main page (contact info, the 12:00 alignment, the bar section)
+should be re-derived into this file the same way, or the two will drift.
+Two things needed re-tuning when the strip was removed, not just deleted:
+the image paths (`img/` -> `../img/`, since the file lives one directory
+deeper and reuses the parent's photos rather than duplicating ~750KB), and
+the poster's height formula (`100svh - 225px` -> `100svh - 175px`), since
+removing the top strip freed up real vertical room that the fixed
+chrome-height constant didn't know about.
+
 ## Preview
 
 `?tryb=dzien` forces the day field, `?tryb=noc` forces night. Without the parameter
