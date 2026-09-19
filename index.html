@@ -8,6 +8,29 @@
 <meta name="theme-color" content="#E7E0EF">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 34'%3E%3Crect width='34' height='34' fill='%23E7E0EF'/%3E%3Cg fill='%238E2410'%3E%3Crect x='8' y='5' width='18' height='7' rx='1.2'/%3E%3Crect x='5' y='14' width='24' height='7' rx='1.2'/%3E%3Crect x='2' y='23' width='30' height='7' rx='1.2'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="canonical" href="https://mindgames.github.io/thai-varso/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": "Thai Varso",
+  "url": "https://mindgames.github.io/thai-varso/",
+  "image": "https://mindgames.github.io/thai-varso/img/og.jpg",
+  "servesCuisine": ["Thai", "Nepalese", "Indian", "Asian fusion"],
+  "priceRange": "22-51 PLN",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ul. Chmielna",
+    "addressLocality": "Warszawa",
+    "addressCountry": "PL"
+  },
+  "hasMenu": "https://chmielna.cocolounge.pl/menu/1/menu",
+  "openingHoursSpecification": [
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Sunday"],"opens":"12:00","closes":"00:00"},
+    {"@type":"OpeningHoursSpecification","dayOfWeek":["Friday","Saturday"],"opens":"12:00","closes":"02:00"}
+  ]
+}
+</script>
+
 <meta property="og:type" content="restaurant">
 <meta property="og:site_name" content="Thai Varso">
 <meta property="og:locale" content="pl_PL">
@@ -356,7 +379,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 <a class="toplink" href="#bufet">
   <span class="tl-l"><b>Bufet: smażony ryż, ile dasz radę</b><em>All-you-can-eat fried rice</em></span>
   <span class="tl-p">25 zł</span>
-  <span class="tl-state" id="bufState">codziennie 11:00–15:00</span>
+  <span class="tl-state" id="bufState">codziennie 12:00–15:00</span>
 </a>
 
 <header class="poster pad stackpad">
@@ -375,7 +398,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
     <a class="line" href="#board"><b>Ramen</b><s></s><em>39 zł</em></a>
     <a class="line" href="#board"><b>Pho</b><s></s><em>36 zł</em></a>
     <a class="line" href="#board"><b>Curry</b><s></s><em>38 zł</em></a>
-    <a class="line" href="#night"><b>Burger</b><s></s><em>45 zł</em></a>
+    <a class="line" href="#night"><b>Burger</b><s></s><em>39 zł</em></a>
   </div>
 
   <p class="poster-foot mono">
@@ -390,8 +413,8 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   <div class="buffet-in">
     <div class="buffet-txt">
       <h2>Smażony ryż<br>ile dasz radę</h2>
-      <p>Bufet all-you-can-eat · codziennie 11:00–15:00</p>
-      <p class="en" lang="en">All-you-can-eat fried rice buffet · every day, 11am–3pm</p>
+      <p>Bufet all-you-can-eat · codziennie 12:00–15:00</p>
+      <p class="en" lang="en">All-you-can-eat fried rice buffet · every day, noon–3pm</p>
       <p class="anchor">Ten sam ryż z karty — <s>33 zł</s> za jeden talerz.<br>W bufecie <b>25 zł</b> i nakładasz, ile chcesz.</p>
       <p class="anchor en" lang="en">The same fried rice is <s>33 zł</s> a plate from the menu. At the buffet it's <b>25 zł</b> and you go back as often as you like.</p>
       <p class="noreserve">Bez rezerwacji — po prostu przyjdź. <span lang="en">No booking, just walk in.</span></p>
@@ -612,7 +635,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 
 <script>
 (function(){
-  var OPEN=12, CLOSE={0:24,1:24,2:24,3:24,4:24,5:26,6:26};
+  var OPEN=12, BUFFET_END=15, CLOSE={0:24,1:24,2:24,3:24,4:24,5:26,6:26};
   var dot=document.getElementById('dot'), txt=document.getElementById('liveTxt');
 
 
@@ -646,15 +669,15 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   function buffet(){
     if(!bufEl) return;
     var n=warsaw(); if(n.d===undefined) return;
-    var mins=Math.round((11 - n.dec)*60);
-    if(n.dec>=11 && n.dec<15){
-      var left=Math.round((15-n.dec)*60);
+    var mins=Math.round((OPEN - n.dec)*60);
+    if(n.dec>=OPEN && n.dec<BUFFET_END){
+      var left=Math.round((BUFFET_END-n.dec)*60);
       var h=Math.floor(left/60), m=left%60;
       bufEl.textContent='Trwa teraz · jeszcze '+(h?h+' h ':'')+m+' min';
-    } else if(n.dec<11){
-      bufEl.textContent = mins<=60 ? 'Start za '+mins+' min' : 'Dziś od 11:00';
+    } else if(n.dec<OPEN){
+      bufEl.textContent = mins<=60 ? 'Start za '+mins+' min' : 'Dziś od '+String(OPEN).padStart(2,'0')+':00';
     } else {
-      bufEl.textContent='Jutro od 11:00';
+      bufEl.textContent='Jutro od '+String(OPEN).padStart(2,'0')+':00';
     }
   }
   buffet(); setInterval(buffet,30000);
