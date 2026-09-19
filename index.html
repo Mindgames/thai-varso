@@ -128,7 +128,7 @@ ul{list-style:none;padding:0}
 }
 .line s{flex:1;height:2px;background:var(--hair);text-decoration:none}
 .line em{
-  flex:none;font-family:var(--data);font-style:normal;font-size:clamp(.66rem,1.5vw,.9rem);
+  flex:none;font-family:var(--data);font-style:normal;font-size:clamp(1.2rem,2.4vw,2rem);
   color:var(--price);font-weight:700;
 }
 .line:hover b,.line:focus-visible b{color:var(--accent)}
@@ -215,12 +215,12 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 .row{padding:var(--s-3) 0;border-bottom:1px solid var(--hair)}
 .row h3{
   font-family:var(--poster);font-weight:700;text-transform:uppercase;
-  font-size:clamp(var(--t-1),2.4vw,var(--t-2));line-height:1.12;letter-spacing:.01em;margin-bottom:var(--s-1);
+  font-size:clamp(var(--t-2),2.7vw,var(--t-3));line-height:1.12;letter-spacing:.01em;margin-bottom:var(--s-1);
 }
 .row p{font-size:var(--t-0);line-height:1.5;color:var(--on-mute);max-width:60ch;margin:0}
 .row .en{font-size:var(--t--1);line-height:1.45;color:var(--on-faint);max-width:60ch;margin-top:5px}
 .row .tab{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px var(--s-2);margin-top:var(--s-2)}
-.row .price{font-family:var(--data);font-weight:700;font-size:var(--t-1);color:var(--price)}
+.row .price{font-family:var(--data);font-weight:700;font-size:var(--t-2);color:var(--price)}
 .row .swap{font-size:var(--t--1);color:var(--accent)}
 
 /* ========== CATERING — order form ========== */
@@ -250,7 +250,9 @@ h2.big{font-size:clamp(var(--t-4),6.4vw,var(--t-5));margin-bottom:.34em;letter-s
 
 /* ========== FOOT ========== */
 .foot{padding-block:clamp(30px,4vw,56px)}
-.hours{width:100%;border-collapse:collapse;max-width:420px}
+.hours{width:100%;border-collapse:collapse;max-width:420px;table-layout:fixed}
+.hours td:first-child{width:58%}
+.hours td:last-child{width:42%}
 .hours td{padding:var(--s-1) 0;border-bottom:1px solid var(--hair);font-size:.9rem}
 .hours td:last-child{font-family:var(--data);font-size:.82rem}
 .hours td:last-child{text-align:right}
@@ -264,6 +266,8 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 @media (min-width:860px){
   .split{grid-template-columns:1fr 1fr;align-items:start}
   .split.wide{grid-template-columns:1.15fr .85fr}
+  .foot .split{grid-template-columns:minmax(240px,420px) 1fr auto;column-gap:var(--s-6)}
+  .foot .split > div:last-child{justify-self:end}
 
   .row{
     display:grid;
