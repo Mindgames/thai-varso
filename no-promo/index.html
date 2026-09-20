@@ -111,6 +111,9 @@ ul{list-style:none;padding:0}
 
 .mono{font-size:.92rem;letter-spacing:.01em;color:var(--on-mute)}
 .nowrap{white-space:nowrap}
+/* Chrome/Edge tag <html> when they translate a page. The Polish half is English
+   by then, so the English half would just repeat it. */
+html.translated-ltr [lang="en"],html.translated-rtl [lang="en"]{display:none}
 .big{
   font-family:var(--poster);font-weight:800;text-transform:uppercase;
   line-height:1.12;letter-spacing:.005em;  /* accented caps span 1.15em ink — never go below ~1.1 */
@@ -129,7 +132,7 @@ ul{list-style:none;padding:0}
 .wordmark small{font-family:var(--body);font-weight:400;font-size:.85rem;line-height:1.4;letter-spacing:.01em;max-width:26ch;align-self:start}
 .live{
   display:flex;align-items:center;gap:9px;
-  font-size:.92rem;font-weight:500;
+  font-size:1.08rem;font-weight:500;
 }
 .live b{font-weight:500}
 .live u{text-decoration:none;color:var(--on-faint);font-weight:400}
@@ -139,10 +142,9 @@ ul{list-style:none;padding:0}
 .bill{flex:1;display:flex;flex-direction:column;justify-content:center;padding-block:var(--s-4) var(--s-2);min-height:0}
 .line{
   display:flex;align-items:baseline;gap:14px;
-  border-top:1px solid var(--hair);padding:1px 0;
+  padding:1px 0;
   text-decoration:none;
 }
-.line:first-child{border-top:0}
 .line b{
   flex:none;font-family:var(--poster);font-weight:800;text-transform:uppercase;
   /* sized from BOTH axes: longest word must fit the column, 8 lines must fit the screen */
@@ -433,37 +435,37 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   <p class="eyebrow">Karta / Menu</p>
   <h2 class="big">Co i o której</h2>
   <p class="lede">Kuchnia pracuje od dwunastej do zamknięcia. Nic nie znika o piętnastej.</p>
-  <p class="lede en" lang="en" style="margin-top:6px">The kitchen runs from noon until we close. Nothing comes off the menu at three.</p>
+  <p class="lede en" lang="en" translate="no" style="margin-top:6px">The kitchen runs from noon until we close. Nothing comes off the menu at three.</p>
 
   <div class="hourhead"><b>12–16</b><span>Lunch</span></div>
   <article class="row">
     <h3>Pad Thai</h3>
     <p>Płaski makaron ryżowy w orzechowo-słodkim sosie, tajskie warzywa, smażone jajko.</p>
-    <p class="en" lang="en">Flat rice noodles tossed in a nutty, sweet sauce with Thai veggies and a savoury fried egg.</p>
+    <p class="en" lang="en" translate="no">Flat rice noodles tossed in a nutty, sweet sauce with Thai veggies and a savoury fried egg.</p>
     <div class="tab"><span class="price">36 zł</span><span class="swap">Tofu 36 · Kurczak 39 · Krewetki 42</span></div>
   </article>
   <article class="row">
     <h3>Chow Mein</h3>
     <p>Makaron z woka w ciemnym sosie sojowym i rybnym, z tajskimi warzywami.</p>
-    <p class="en" lang="en">Wok-tossed chow mein noodles with Thai veggies in rich dark soy and fish sauce.</p>
+    <p class="en" lang="en" translate="no">Wok-tossed chow mein noodles with Thai veggies in rich dark soy and fish sauce.</p>
     <div class="tab"><span class="price">33 zł</span><span class="swap">Tofu 33 · Kurczak 39 · Krewetki 45</span></div>
   </article>
   <article class="row">
     <h3>Smażony ryż / Fried Rice</h3>
     <p>Ryż z woka z mieszanką warzyw i aromatycznymi przyprawami.</p>
-    <p class="en" lang="en">Stir-fried rice with mixed veggies and aromatic spices.</p>
+    <p class="en" lang="en" translate="no">Stir-fried rice with mixed veggies and aromatic spices.</p>
     <div class="tab"><span class="price">33 zł</span><span class="swap">Tofu 33 · Kurczak 36 · Krewetki 39</span></div>
   </article>
   <article class="row">
     <h3>Tom Yum</h3>
     <p>Ostro-kwaśna zupa z trawą cytrynową, galangalem i limonką.</p>
-    <p class="en" lang="en">Zesty hot and sour soup infused with lemongrass, galangal and a splash of lime.</p>
+    <p class="en" lang="en" translate="no">Zesty hot and sour soup infused with lemongrass, galangal and a splash of lime.</p>
     <div class="tab"><span class="price">24 zł</span><span class="swap">Tofu 24 · Kurczak 28 · Krewetki 33</span></div>
   </article>
   <article class="row">
     <h3>Manchow</h3>
     <p>Gęsta, ciemna zupa z imbirem i czosnkiem, z chrupiącym smażonym makaronem.</p>
-    <p class="en" lang="en">Rich dark soup with mixed vegetables, ginger and garlic, topped with crispy fried noodles.</p>
+    <p class="en" lang="en" translate="no">Rich dark soup with mixed vegetables, ginger and garlic, topped with crispy fried noodles.</p>
     <div class="tab"><span class="price">22 zł</span><span class="swap">Tofu 22 · Kurczak 26 · Krewetki 32</span></div>
   </article>
 
@@ -471,43 +473,43 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   <article class="row">
     <h3>Curry tajskie / Thai Curry</h3>
     <p>Zielone, czerwone albo żółte, na mleku kokosowym. Ostrość ustawiamy pod ciebie.</p>
-    <p class="en" lang="en">Green, red or yellow curry simmered with fragrant spices and coconut milk. Spice level adjustable.</p>
+    <p class="en" lang="en" translate="no">Green, red or yellow curry simmered with fragrant spices and coconut milk. Spice level adjustable.</p>
     <div class="tab"><span class="price">38 zł</span><span class="swap">Tofu 38 · Kurczak 42 · Krewetki 45</span></div>
   </article>
   <article class="row">
     <h3>Tom Kha Gai</h3>
     <p>Kokosowa zupa z galangalem, liśćmi limonki kaffir i świeżymi ziołami.</p>
-    <p class="en" lang="en">Fragrant Thai coconut soup with galangal, lime leaves and fresh herbs.</p>
+    <p class="en" lang="en" translate="no">Fragrant Thai coconut soup with galangal, lime leaves and fresh herbs.</p>
     <div class="tab"><span class="price">26 zł</span><span class="swap">Tofu 26 · Kurczak 29 · Krewetki 34</span></div>
   </article>
   <article class="row">
     <h3>Ramen</h3>
     <p>Wywar z bambusem, galangalem, szczypiorkiem i jajkiem.</p>
-    <p class="en" lang="en">Ramen in an aromatic oriental broth with bamboo, galangal, spring onion and egg.</p>
+    <p class="en" lang="en" translate="no">Ramen in an aromatic oriental broth with bamboo, galangal, spring onion and egg.</p>
     <div class="tab"><span class="price">39 zł</span><span class="swap">Kurczak 39 · Wołowina 42</span></div>
   </article>
   <article class="row">
     <h3>Pho</h3>
     <p>Mięsny wywar z makaronem, cebulą, szczypiorkiem i ziołami.</p>
-    <p class="en" lang="en">Savoury meat broth with noodles, onion, chives and herbs.</p>
+    <p class="en" lang="en" translate="no">Savoury meat broth with noodles, onion, chives and herbs.</p>
     <div class="tab"><span class="price">36 zł</span><span class="swap">Kurczak 36 · Wołowina 39 · Krewetki 44</span></div>
   </article>
   <article class="row">
     <h3>Cauliflower Manchurian</h3>
     <p>Kalafior w cieście, smażony, w sosie manchurian z warzywami.</p>
-    <p class="en" lang="en">Crispy battered cauliflower tossed in Manchurian sauce with mixed vegetables.</p>
+    <p class="en" lang="en" translate="no">Crispy battered cauliflower tossed in Manchurian sauce with mixed vegetables.</p>
     <div class="tab"><span class="price">26 zł</span></div>
   </article>
   <article class="row">
     <h3>Chili — tofu, kurczak, krewetki</h3>
     <p>Kawałki w słodko-ostrej glazurze chili, z ziołami i chrupiącą papryką.</p>
-    <p class="en" lang="en">Tender bites in a sweet, spicy, tangy chilli glaze with herbs and crunchy capsicum.</p>
+    <p class="en" lang="en" translate="no">Tender bites in a sweet, spicy, tangy chilli glaze with herbs and crunchy capsicum.</p>
     <div class="tab"><span class="price">30 zł</span><span class="swap">Tofu 30 · Kurczak 36 · Krewetki 40</span></div>
   </article>
   <article class="row">
     <h3>Tempura (6 szt.)</h3>
     <p>Owoce morza w lekkiej, chrupiącej panierce, z sosem do maczania.</p>
-    <p class="en" lang="en">Seafood in a light, crispy batter, fried golden and served with a dipping sauce.</p>
+    <p class="en" lang="en" translate="no">Seafood in a light, crispy batter, fried golden and served with a dipping sauce.</p>
     <div class="tab"><span class="price">49,99 zł</span></div>
   </article>
 
@@ -515,31 +517,31 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   <article class="row">
     <h3>Chef's Special Burger</h3>
     <p>Wołowina, cheddar, sadzone jajko, chorizo, sałata, cebula i jalapeño, nasz sos. Z frytkami.</p>
-    <p class="en" lang="en">Grilled beef with cheddar, a fried egg and spicy chorizo, salad, onion and jalapeños, house sauce. With fries.</p>
+    <p class="en" lang="en" translate="no">Grilled beef with cheddar, a fried egg and spicy chorizo, salad, onion and jalapeños, house sauce. With fries.</p>
     <div class="tab"><span class="price">51 zł</span></div>
   </article>
   <article class="row">
     <h3>Jalapeño Cheese Burger</h3>
     <p>Wołowina, cheddar, boczek, jalapeño i lodowa sałata, BBQ i ostry sos. Z frytkami.</p>
-    <p class="en" lang="en">Grilled beef with cheddar, bacon, jalapeños and crisp iceberg, BBQ and hot sauce. With fries.</p>
+    <p class="en" lang="en" translate="no">Grilled beef with cheddar, bacon, jalapeños and crisp iceberg, BBQ and hot sauce. With fries.</p>
     <div class="tab"><span class="price">45 zł</span></div>
   </article>
   <article class="row">
     <h3>Vege Tofu Burger</h3>
     <p>Grillowane tofu z serem, pomidorem, ogórkiem konserwowym i cebulą. Z frytkami.</p>
-    <p class="en" lang="en">Grilled tofu with cheese, tomato, pickles and onion. With fries.</p>
+    <p class="en" lang="en" translate="no">Grilled tofu with cheese, tomato, pickles and onion. With fries.</p>
     <div class="tab"><span class="price">39 zł</span></div>
   </article>
   <article class="row">
     <h3>Smash beef loaded fries</h3>
     <p>Frytki pod stopionym serem i mieloną wołowiną.</p>
-    <p class="en" lang="en">Crispy golden fries topped with melted cheese and savoury minced beef.</p>
+    <p class="en" lang="en" translate="no">Crispy golden fries topped with melted cheese and savoury minced beef.</p>
     <div class="tab"><span class="price">34 zł</span><span class="swap">Kurczak 34 · Wołowina 36</span></div>
   </article>
   <article class="row">
     <h3>Curly fries</h3>
     <p>Przyprawione frytki z serem i chili, ketchup z wędzonej papryki.</p>
-    <p class="en" lang="en">Spiced curly fries with cheese and chilli seasoning, smoked red pepper ketchup.</p>
+    <p class="en" lang="en" translate="no">Spiced curly fries with cheese and chilli seasoning, smoked red pepper ketchup.</p>
     <div class="tab"><span class="price">24 zł</span></div>
   </article>
 </section>
@@ -550,7 +552,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
       <p class="eyebrow">Po dwudziestej drugiej</p>
       <h2 class="big">Kuchnia nie<br>zamyka pierwsza</h2>
       <p class="lede">Mały bar, kilka stolików na zewnątrz. Koktajle, shoty, piwo i shisha, czasem głośniejsza muzyka. W niedzielę–czwartek do północy, w piątek i sobotę do drugiej. Jedzenie leci do końca — nikogo nie wyganiamy o dwudziestej trzeciej.</p>
-      <p class="lede en" lang="en" style="margin-top:10px">A small bar with a few tables outside. Cocktails, shots, beer and shisha, and some nights it gets loud. Sunday to Thursday till midnight, Friday and Saturday till 2am. The kitchen runs till close.</p>
+      <p class="lede en" lang="en" translate="no" style="margin-top:10px">A small bar with a few tables outside. Cocktails, shots, beer and shisha, and some nights it gets loud. Sunday to Thursday till midnight, Friday and Saturday till 2am. The kitchen runs till close.</p>
     </div>
     <figure class="figure" style="border-color:var(--steam)">
       <img src="../img/wok-print.jpg" alt="Danie z woka w ostrym sosie" loading="lazy">
@@ -667,7 +669,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 
   </div>
   <p class="lede" style="margin-top:var(--s-4)">Na miejscu też pełna karta: wódki, whisky, rum, tequila, gin, wina i likiery — zapytaj barmana.</p>
-  <p class="lede en" lang="en" style="margin-top:8px">Also on hand: vodka, whisky, rum, tequila, gin, wines and liqueurs — ask the bartender.</p>
+  <p class="lede en" lang="en" translate="no" style="margin-top:8px">Also on hand: vodka, whisky, rum, tequila, gin, wines and liqueurs — ask the bartender.</p>
 </section>
 
 <section class="band pad stackpad" id="catering">
@@ -756,8 +758,8 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
     else if(closeH<12){ plClose=(closeH<10?'0':'')+closeH+':00'; enClose=closeH+'am'; }
     else { plClose=closeH+':00'; enClose=(closeH-12)+'pm'; }
     txt.innerHTML = open
-      ? '<b>Otwarte do ' + plClose + '</b> <u>· open till ' + enClose + '</u>'
-      : '<b>Zamknięte · otwieramy o 12:00</b> <u>· opens at noon</u>';
+      ? '<b>Otwarte do ' + plClose + '</b> <u translate="no" lang="en">· open till ' + enClose + '</u>'
+      : '<b>Zamknięte · otwieramy o 12:00</b> <u translate="no" lang="en">· opens at noon</u>';
 
     [].forEach.call(document.querySelectorAll('#hoursBody tr'), function(r){
       r.classList.toggle('today', parseInt(r.dataset.d,10)===n.d);

@@ -331,6 +331,34 @@ which a contrast or size audit could have flagged:
 11. The `.overflow` audit itself needed fixing: `display:contents` parents
     have no box, so their children "overflowed" a zero-width rect. Skip them.
 
+## Two things that only show up in a real browser
+
+**The hero drew two lines per row.** Every `.line` had a `border-top` divider
+*and* the leader rule that runs from the dish name to the price. The leader
+sits on the baseline; the next row's divider sat a few pixels beneath it. The
+leader carries meaning (it connects name to price), so the divider went.
+
+**Bilingual pairs double under browser translation.** The page is Polish
+first with English beside it. When Chrome auto-translates, the Polish half
+becomes English too, so "Zamknięte · otwieramy o 12:00 · opens at noon"
+renders as "Closed · opens at 12:00 · opens at noon" -- every PL/EN pair on
+the page reads twice. This was the "00:00 · 00:00" bug's real root cause,
+not just the number.
+
+Fix, two parts. Every English element carries `translate="no"` so the
+browser never re-processes it. And Chrome/Edge tag `<html>` with
+`translated-ltr` (or `-rtl`) once they have translated a page, so:
+
+```css
+html.translated-ltr [lang="en"], html.translated-rtl [lang="en"] { display:none }
+```
+
+The English duplicates vanish the moment the Polish has been turned into
+English. Untranslated readers still get both languages. Verified by adding
+the class in the console: 24 of 24 English spans hidden, status line
+collapses to the Polish half alone. Safari and Firefox translation don't
+set a class, so they still show both -- acceptable, and no worse than before.
+
 ## Bar & Shisha
 
 Built as real on-page content, not a link out. Curated from the venue's own
