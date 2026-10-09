@@ -5,6 +5,12 @@ Thai curries, Nepalese momo, Indian manchurian, burgers, cocktails and shisha.
 
 Static. No build step — `index.html` plus four images.
 
+## Tests
+
+Run `node --test tests/opening-hours.test.cjs` with Node.js 18 or newer.
+The tests execute both pages' status scripts with a controlled clock, including
+Warsaw midnight, closing-time and daylight-saving boundaries.
+
 ## Design
 
 Polish poster school (Tomaszewski, Świerzy, Cieślewicz): flat field, few spot inks,
