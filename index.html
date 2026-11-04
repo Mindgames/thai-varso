@@ -771,7 +771,8 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 
 
     dot.classList.toggle('shut', !open);
-    var closeH = closeToday % 24;
+    // Before noon, an open service still belongs to the previous day.
+    var closeH = (open && n.dec < OPEN ? closeYest : closeToday) % 24;
     var plClose, enClose;
     if(closeH===0){ plClose='północy'; enClose='midnight'; }
     else if(closeH===12){ plClose='12:00'; enClose='noon'; }
