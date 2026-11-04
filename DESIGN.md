@@ -395,6 +395,10 @@ has to disambiguate.
 It is generated FROM the fixed main file, never edited by hand -- every fix
 made to the main page (contact info, the 12:00 alignment, the bar section)
 should be re-derived into this file the same way, or the two will drift.
+During derivation, set `og:description` to the page's non-promotional
+`meta[name="description"]` content as well, so sharing the no-promo URL does
+not reintroduce the removed buffet offer. Check both variants' description
+metadata offline with `python -m unittest discover -s tests -v`.
 Two things needed re-tuning when the strip was removed, not just deleted:
 the image paths (`img/` -> `../img/`, since the file lives one directory
 deeper and reuses the parent's photos rather than duplicating ~750KB), and
