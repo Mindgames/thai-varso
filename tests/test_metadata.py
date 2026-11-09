@@ -34,9 +34,11 @@ class DescriptionTests(unittest.TestCase):
         metadata = Metadata(ROOT / "no-promo/index.html").values
         self.assertEqual(metadata["og:description"], metadata["description"])
 
-    def test_main_page_keeps_its_promotional_description(self):
+    def test_main_page_excludes_rice_buffet_promotion(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
         metadata = Metadata(ROOT / "index.html").values
-        self.assertIn("Bufet all-you-can-eat", metadata["og:description"][0])
+        self.assertNotRegex(metadata["og:description"][0].lower(), r"bufet|buffet|all-you-can-eat")
+        self.assertNotRegex(html.lower(), r'all-you-can-eat|id="bufet"|href="#bufet"')
 
 
 if __name__ == "__main__":

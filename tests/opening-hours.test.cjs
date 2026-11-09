@@ -28,7 +28,6 @@ function loadPage(page, instant) {
   }
   const dot = element();
   const text = element();
-  const buffet = page === 'index.html' ? element() : null;
   const rows = Array.from({ length: 7 }, (_, day) => ({ ...element(), dataset: { d: String(day) } }));
   const timers = [];
   class ClockDate extends Date {
@@ -39,13 +38,13 @@ function loadPage(page, instant) {
     Date: ClockDate,
     Intl,
     document: {
-      getElementById(id) { return { dot, liveTxt: text, bufState: buffet }[id] ?? null; },
+      getElementById(id) { return { dot, liveTxt: text }[id] ?? null; },
       querySelectorAll(selector) { assert.equal(selector, '#hoursBody tr'); return rows; },
     },
     setInterval(callback, delay) { assert.equal(delay, 30000); timers.push(callback); },
   }, { filename: page, timeout: 1000 });
   return {
-    dot, text, buffet, rows,
+    dot, text, rows,
     advanceTo(instant) {
       now = Date.parse(instant);
       for (const callback of timers) callback();
@@ -105,12 +104,3 @@ for (const page of pages) {
     check(loaded, 'midnight', 0);
   });
 }
-
-test('main page keeps the buffet countdown independent of the closing label', () => {
-  const page = loadPage('index.html', '2026-10-11T14:59:00+02:00');
-  check(page, 'midnight', 0);
-  assert.equal(page.buffet.textContent, 'Trwa teraz · jeszcze 1 min');
-  page.advanceTo('2026-10-11T15:00:00+02:00');
-  assert.equal(page.buffet.textContent, 'Jutro od 12:00');
-  check(page, 'midnight', 0);
-});

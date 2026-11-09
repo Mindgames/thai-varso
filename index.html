@@ -38,7 +38,7 @@
 <meta property="og:locale" content="pl_PL">
 <meta property="og:locale:alternate" content="en_GB">
 <meta property="og:title" content="Thai Varso — Chmielna, do drugiej">
-<meta property="og:description" content="Momo, curry, ramen. Mały bar przy Chmielnej. Bufet all-you-can-eat 12–15 za 25 zł. Otwarte do północy, w piątek i sobotę do drugiej.">
+<meta property="og:description" content="Momo, curry, ramen. Azjatycka kuchnia i bar przy Chmielnej w Warszawie. Otwarte od 12:00 do północy, w piątek i sobotę do drugiej. Catering dla biur i ekip filmowych.">
 <meta property="og:url" content="https://mindgames.github.io/thai-varso/">
 <meta property="og:image" content="https://mindgames.github.io/thai-varso/img/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -190,7 +190,7 @@ html.translated-ltr [lang="en"],html.translated-rtl [lang="en"]{display:none}
   .tl-state{margin-left:0;width:100%;text-align:center;font-size:.76rem}
 }
 
-/* all-you-can-eat strip — the loudest offer on the page */
+/* Shared promotional styles */
 .buffet{background:var(--chilli-fill);color:var(--steam);border-bottom:var(--rule);padding-block:clamp(var(--s-4),3.4vw,var(--s-5))}
 .buffet-in{display:flex;flex-wrap:wrap;align-items:center;gap:14px clamp(20px,4vw,52px)}
 .buffet-txt{flex:1 1 320px;min-width:0}
@@ -385,12 +385,6 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 </head>
 <body>
 
-<a class="toplink" href="#bufet">
-  <span class="tl-l"><b>Bufet: smażony ryż, ile dasz radę</b><em>All-you-can-eat fried rice</em></span>
-  <span class="tl-p">25 zł</span>
-  <span class="tl-state" id="bufState">codziennie <span class="nowrap">12:00–15:00</span></span>
-</a>
-
 <header class="poster pad stackpad">
   <div class="poster-top">
     <h1 class="wordmark"><svg class="mk" viewBox="0 0 34 40" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"><path d="M10.5 8.5c0-3 2.8-2.8 2.8-5.8"/><path d="M17 6.2c0-2.6 2.8-2.4 2.8-5"/><path d="M23.5 8.5c0-3 2.8-2.8 2.8-5.8"/></g><g fill="currentColor"><rect x="8" y="14" width="18" height="6.6" rx="1.2"/><rect x="5" y="23" width="24" height="6.6" rx="1.2"/><rect x="2" y="32" width="30" height="7" rx="1.2"/></g></svg><span class="wm-t">Thai<i>·</i>Varso</span>
@@ -411,26 +405,11 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
   </div>
 
   <p class="poster-foot mono">
-    <span><a href="#bufet" style="color:var(--accent);font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent)">Bufet 12–15 · ile dasz radę · 25 zł</a></span>
     <span>ul. Chmielna 98/14, Warszawa</span>
     <span>Kuchnia tajska · nepalska · indyjska</span>
     <span>Ceny z VAT</span>
   </p>
 </header>
-
-<section class="buffet pad stackpad" id="bufet">
-  <div class="buffet-in">
-    <div class="buffet-txt">
-      <h2>Smażony ryż<br>ile dasz radę</h2>
-      <p>Bufet all-you-can-eat · codziennie <span class="nowrap">12:00–15:00</span></p>
-      <p class="en" lang="en" translate="no">All-you-can-eat fried rice buffet · every day, <span class="nowrap">noon–3pm</span></p>
-      <p class="anchor">Ten sam ryż z karty — <s>33 zł</s> za jeden talerz.<br>W bufecie <b>25 zł</b> i nakładasz, ile chcesz.</p>
-      <p class="anchor en" lang="en" translate="no">The same fried rice is <s>33 zł</s> a plate from the menu. At the buffet it's <b>25 zł</b> and you go back as often as you like.</p>
-      <p class="noreserve">Bez rezerwacji — po prostu przyjdź. <span lang="en" translate="no">No booking, just walk in.</span><span class="beat" aria-hidden="true"><i></i><i></i><i></i><i></i></span></p>
-    </div>
-    <p class="tag">25 zł<small>na osobę / per person</small></p>
-  </div>
-</section>
 
 <section class="band steam pad stackpad" id="momo">
   <div class="split wide">
@@ -765,7 +744,7 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
 
 <script>
 (function(){
-  var OPEN=12, BUFFET_END=15, CLOSE={0:24,1:24,2:24,3:24,4:24,5:26,6:26};
+  var OPEN=12, CLOSE={0:24,1:24,2:24,3:24,4:24,5:26,6:26};
   var dot=document.getElementById('dot'), txt=document.getElementById('liveTxt');
 
 
@@ -798,25 +777,6 @@ a:focus-visible,.line:focus-visible{outline:3px solid var(--accent);outline-offs
       r.classList.toggle('today', parseInt(r.dataset.d,10)===n.d);
     });
   }
-  // Buffet state from the real clock. Every claim here is true by construction:
-  // the window is fixed and daily, so no invented scarcity is needed.
-  var bufEl=document.getElementById('bufState');
-  function buffet(){
-    if(!bufEl) return;
-    var n=warsaw(); if(n.d===undefined) return;
-    var mins=Math.round((OPEN - n.dec)*60);
-    if(n.dec>=OPEN && n.dec<BUFFET_END){
-      var left=Math.round((BUFFET_END-n.dec)*60);
-      var h=Math.floor(left/60), m=left%60;
-      bufEl.textContent='Trwa teraz · jeszcze '+(h?h+' h ':'')+m+' min';
-    } else if(n.dec<OPEN){
-      bufEl.textContent = mins<=60 ? 'Start za '+mins+' min' : 'Dziś od '+String(OPEN).padStart(2,'0')+':00';
-    } else {
-      bufEl.textContent='Jutro od '+String(OPEN).padStart(2,'0')+':00';
-    }
-  }
-  buffet(); setInterval(buffet,30000);
-
   tick(); setInterval(tick,30000);
 })();
 </script>
